@@ -1,0 +1,15 @@
+{
+  "name": "product-builder",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "customizations": {
+    "codespaces": {
+      "repositories": {
+        "koochungkyung-ui/product-builder-koock": {
+          "permissions": {
+            "contents": "write"
+          }
+        }
+      }
+    }
+  }
+}
