@@ -821,6 +821,173 @@
     }
 
     /* =========================================
+       타로 카드 섹션 스타일
+       ========================================= */
+    .tarot-spread {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .tarot-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tarot-slot-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .tarot-card {
+      width: 100%;
+      max-width: 120px;
+      aspect-ratio: 2 / 3;
+      perspective: 800px;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .tarot-card:disabled {
+      cursor: default;
+    }
+
+    .tarot-card:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+      border-radius: var(--radius-md);
+    }
+
+    .tarot-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1);
+      transform-style: preserve-3d;
+    }
+
+    .tarot-card.flipped .tarot-inner {
+      transform: rotateY(180deg);
+    }
+
+    .tarot-card:not(.flipped):hover .tarot-inner {
+      transform: translateY(-4px);
+    }
+
+    .tarot-face {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-md);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 6px;
+      box-shadow: 0 8px 18px -8px rgba(76, 29, 149, 0.55);
+    }
+
+    .tarot-back {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(250, 204, 21, 0.35) 0 14%, transparent 15%),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 6px, transparent 6px 12px),
+        linear-gradient(160deg, #4c1d95 0%, #312e81 100%);
+      border: 2px solid #c4b5fd;
+      color: #fde68a;
+      font-size: 28px;
+    }
+
+    .tarot-front {
+      transform: rotateY(180deg);
+      background: var(--card-bg);
+      border: 2px solid #a855f7;
+      color: var(--text-main);
+      text-align: center;
+    }
+
+    .tarot-front .tarot-no {
+      font-size: 11px;
+      font-weight: 800;
+      color: #a855f7;
+    }
+
+    .tarot-front .tarot-emoji {
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .tarot-front.reversed .tarot-emoji {
+      transform: rotate(180deg);
+    }
+
+    .tarot-front .tarot-name {
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.25;
+      word-break: keep-all;
+    }
+
+    .tarot-front .tarot-dir {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .tarot-hint {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .tarot-readings {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .tarot-reading {
+      background: var(--card-bg);
+      border: 1px solid var(--sub-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-muted);
+    }
+
+    .tarot-reading strong {
+      color: var(--text-main);
+    }
+
+    .tarot-actions {
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (max-width: 540px) {
+      .tarot-spread {
+        gap: 8px;
+      }
+      .tarot-front .tarot-emoji {
+        font-size: 24px;
+      }
+      .tarot-front .tarot-name {
+        font-size: 12px;
+      }
+    }
+
+    /* =========================================
        3. 화이트보드 (스케치북) 섹션 스타일
        ========================================= */
     .whiteboard-toolbar {
@@ -1095,10 +1262,13 @@
     <!-- 탭 네비게이션 -->
     <nav class="tab-nav" role="tablist" aria-label="메뉴">
       <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="lotto-card" data-target="lotto-card">
-        <span>🍀</span> 로또 추첨
+        <span>🍀</span> 로또
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="fortune-card" data-target="fortune-card">
-        <span>🔮</span> 맞춤 운세
+        <span>🔮</span> 운세
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tarot-card" data-target="tarot-card">
+        <span>🃏</span> 타로
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="whiteboard-card" data-target="whiteboard-card">
         <span>✏️</span> 스케치북
@@ -1220,6 +1390,44 @@
         <div class="fortune-content" id="fortune-content">
           <p class="fortune-desc">생년월일을 선택하고 버튼을 누르면 오늘의 맞춤 운세와 연계 번호를 확인하실 수 있습니다!</p>
         </div>
+      </div>
+    </section>
+
+    <!-- 타로 카드 & 로또 번호 섹션 -->
+    <section class="card" id="tarot-card" role="tabpanel">
+      <header class="card-header">
+        <div class="badge">
+          <span>🃏</span> 오늘의 타로
+        </div>
+        <h2 class="title">타로 카드 & 행운 번호</h2>
+        <p class="subtitle">카드 3장을 뒤집으면 카드의 기운이 담긴 번호가 만들어집니다</p>
+      </header>
+
+      <div class="tarot-spread" id="tarot-spread">
+        <div class="tarot-slot">
+          <span class="tarot-slot-label">과거</span>
+          <button class="tarot-card" data-slot="0" aria-label="과거 카드 뒤집기"></button>
+        </div>
+        <div class="tarot-slot">
+          <span class="tarot-slot-label">현재</span>
+          <button class="tarot-card" data-slot="1" aria-label="현재 카드 뒤집기"></button>
+        </div>
+        <div class="tarot-slot">
+          <span class="tarot-slot-label">미래</span>
+          <button class="tarot-card" data-slot="2" aria-label="미래 카드 뒤집기"></button>
+        </div>
+      </div>
+      <p class="tarot-hint" id="tarot-hint">카드를 한 장씩 눌러 뒤집어 보세요 (0 / 3)</p>
+
+      <div class="fortune-box" id="tarot-result">
+        <div class="fortune-crystal">🃏</div>
+        <p class="fortune-desc">세 장을 모두 뒤집으면 타로 해석과 연계 로또 번호가 나타납니다!</p>
+      </div>
+
+      <div class="tarot-actions">
+        <button class="btn-sub" id="btn-tarot-shuffle">
+          <span>🔀</span> 카드 다시 섞기
+        </button>
       </div>
     </section>
 
@@ -1874,45 +2082,222 @@
         // 맞춤 번호 복사 이벤트
         document.getElementById('btn-fortune-copy').addEventListener('click', () => {
           const text = `🍀 [${y}년생 ${zodiac.name} 맞춤 로또 행운 번호]\n생년월일: ${val} (${constellation.name})\n추천번호: ${lastGeneratedLinkedNumbers.map(n => String(n).padStart(2, ' ')).join(', ')}`;
-          navigator.clipboard.writeText(text).then(() => {
-            showToast('✅ 맞춤 로또 번호가 복사되었습니다!');
-          }).catch(() => {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            showToast('✅ 맞춤 로또 번호가 복사되었습니다!');
-          });
+          copyText(text, '✅ 맞춤 로또 번호가 복사되었습니다!');
         });
 
         // 메인 추첨기 적용 이벤트
         document.getElementById('btn-apply-main').addEventListener('click', () => {
-          generatedSets = [lastGeneratedLinkedNumbers];
-          currentCount = 1;
-          tab1.classList.add('active');
-          tab5.classList.remove('active');
-
-          resultsArea.innerHTML = `
-            <div class="lotto-game-row">
-              <div class="game-tag" style="background: #fdf4ff; color: #a855f7;">맞춤</div>
-              <div class="balls-list">
-                ${lastGeneratedLinkedNumbers.map(num => `<div class="ball ${getBallClass(num)}" style="animation-delay: 0.05s">${num}</div>`).join('')}
-              </div>
-            </div>
-          `;
-          btnCopy.disabled = false;
-
-          // 메인 추첨기 탭으로 전환
-          switchTab('lotto-card');
-          triggerConfetti();
-          showToast('🍀 맞춤 번호가 상단 메인 추첨기에 적용되었습니다!');
+          applyToMainLotto(lastGeneratedLinkedNumbers, '맞춤', '🍀 맞춤 번호가 메인 추첨기에 적용되었습니다!');
         });
 
         showToast(`🔮 ${y}년생 ${zodiac.name} 맞춤 운세와 번호가 완성되었습니다!`);
       }, 400);
     });
+
+    // 클립보드 복사 (구형 브라우저 대비 폴백 포함)
+    function copyText(text, message) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(message);
+      }).catch(() => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast(message);
+      });
+    }
+
+    // 연계 번호를 메인 추첨기에 1게임으로 적용하고 로또 탭으로 이동
+    function applyToMainLotto(numbers, tagLabel, message) {
+      generatedSets = [numbers];
+      currentCount = 1;
+      tab1.classList.add('active');
+      tab5.classList.remove('active');
+
+      resultsArea.innerHTML = `
+        <div class="lotto-game-row">
+          <div class="game-tag" style="background: #fdf4ff; color: #a855f7;">${tagLabel}</div>
+          <div class="balls-list">
+            ${numbers.map(num => `<div class="ball ${getBallClass(num)}" style="animation-delay: 0.05s">${num}</div>`).join('')}
+          </div>
+        </div>
+      `;
+      btnCopy.disabled = false;
+
+      switchTab('lotto-card');
+      triggerConfetti();
+      showToast(message);
+    }
+
+    /* ========================================================
+       타로 카드 & 로또 번호 연계 로직
+       ======================================================== */
+    // 메이저 아르카나 22장 (번호, 이름, 상징, 정방향/역방향 의미)
+    const tarotDeck = [
+      { no: 0, name: '바보', emoji: '🃏', up: '새로운 시작과 자유로운 도전', rev: '성급한 결정, 한 번 더 살피기' },
+      { no: 1, name: '마법사', emoji: '🪄', up: '원하는 것을 이뤄내는 실행력', rev: '재능은 있으나 방향 점검 필요' },
+      { no: 2, name: '여사제', emoji: '🌙', up: '직관과 내면의 지혜', rev: '숨겨진 정보, 서두르지 않기' },
+      { no: 3, name: '여황제', emoji: '🌸', up: '풍요와 결실, 재물의 흐름', rev: '과한 소비를 조심할 때' },
+      { no: 4, name: '황제', emoji: '👑', up: '안정과 확고한 기반', rev: '고집을 내려놓으면 길이 열림' },
+      { no: 5, name: '교황', emoji: '📜', up: '조언과 신뢰, 전통의 힘', rev: '나만의 방식이 필요한 시기' },
+      { no: 6, name: '연인', emoji: '💞', up: '조화로운 선택과 좋은 인연', rev: '선택 앞의 망설임' },
+      { no: 7, name: '전차', emoji: '🏇', up: '거침없는 전진과 승리', rev: '속도 조절이 필요한 때' },
+      { no: 8, name: '힘', emoji: '🦁', up: '부드러운 용기와 인내', rev: '자신감을 되찾는 과정' },
+      { no: 9, name: '은둔자', emoji: '🏮', up: '깊은 성찰과 통찰', rev: '혼자보다 함께가 좋은 때' },
+      { no: 10, name: '운명의 수레바퀴', emoji: '🎡', up: '행운의 전환점, 기회의 도래', rev: '흐름이 바뀌기를 기다리기' },
+      { no: 11, name: '정의', emoji: '⚖️', up: '공정한 결과와 균형', rev: '작은 실수 바로잡기' },
+      { no: 12, name: '매달린 사람', emoji: '🙃', up: '관점을 바꾸면 보이는 기회', rev: '정체에서 벗어날 준비' },
+      { no: 13, name: '죽음', emoji: '🦋', up: '끝과 새로운 탄생, 변화', rev: '변화를 두려워하지 않기' },
+      { no: 14, name: '절제', emoji: '🏺', up: '균형과 조화, 적당함의 미덕', rev: '리듬을 다시 맞추기' },
+      { no: 15, name: '악마', emoji: '😈', up: '강한 욕망과 집착 경계', rev: '속박에서 벗어나는 해방' },
+      { no: 16, name: '탑', emoji: '⚡', up: '갑작스러운 반전과 각성', rev: '위기를 피해 가는 행운' },
+      { no: 17, name: '별', emoji: '⭐', up: '희망과 영감, 소원 성취', rev: '희망을 놓지 않기' },
+      { no: 18, name: '달', emoji: '🌕', up: '꿈과 무의식이 주는 신호', rev: '불안이 걷히고 선명해짐' },
+      { no: 19, name: '태양', emoji: '☀️', up: '성공과 기쁨, 최고의 길운', rev: '조금 늦게 오는 밝은 소식' },
+      { no: 20, name: '심판', emoji: '📯', up: '부활과 보상, 좋은 소식', rev: '지난 일을 정리할 때' },
+      { no: 21, name: '세계', emoji: '🌍', up: '완성과 성취, 큰 결실', rev: '마지막 한 걸음 남음' }
+    ];
+
+    const tarotSlotNames = ['과거', '현재', '미래'];
+    const tarotCardEls = document.querySelectorAll('.tarot-card');
+    const tarotHint = document.getElementById('tarot-hint');
+    const tarotResult = document.getElementById('tarot-result');
+    const btnTarotShuffle = document.getElementById('btn-tarot-shuffle');
+    let tarotDraw = [];
+    let lastTarotNumbers = [];
+
+    function shuffleTarot() {
+      const deck = [...tarotDeck];
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      tarotDraw = deck.slice(0, 3).map(card => ({ ...card, reversed: Math.random() < 0.3, flipped: false }));
+      lastTarotNumbers = [];
+
+      tarotCardEls.forEach((el, i) => {
+        const card = tarotDraw[i];
+        el.classList.remove('flipped');
+        el.disabled = false;
+        el.innerHTML = `
+          <div class="tarot-inner">
+            <div class="tarot-face tarot-back">✦</div>
+            <div class="tarot-face tarot-front${card.reversed ? ' reversed' : ''}">
+              <span class="tarot-no">${card.no}</span>
+              <span class="tarot-emoji">${card.emoji}</span>
+              <span class="tarot-name">${card.name}</span>
+              <span class="tarot-dir">${card.reversed ? '역방향' : '정방향'}</span>
+            </div>
+          </div>
+        `;
+      });
+
+      tarotHint.textContent = '카드를 한 장씩 눌러 뒤집어 보세요 (0 / 3)';
+      tarotResult.innerHTML = `
+        <div class="fortune-crystal">🃏</div>
+        <p class="fortune-desc">세 장을 모두 뒤집으면 타로 해석과 연계 로또 번호가 나타납니다!</p>
+      `;
+    }
+
+    // 카드 번호(1~22)와 정/역방향 보조 번호(23~45)로 6개 번호 생성
+    function generateTarotLottoNumbers(cards) {
+      const selected = new Set();
+      cards.forEach(card => {
+        selected.add(card.no + 1);
+        selected.add(card.reversed ? 45 - card.no : card.no + 23);
+      });
+      while (selected.size < 6) {
+        selected.add(Math.floor(Math.random() * 45) + 1);
+      }
+      return Array.from(selected).sort((a, b) => a - b);
+    }
+
+    function renderTarotResult() {
+      lastTarotNumbers = generateTarotLottoNumbers(tarotDraw);
+      const uprightCount = tarotDraw.filter(c => !c.reversed).length;
+      const summaries = [
+        '지금은 숨을 고르며 흐름을 지켜볼 때입니다. 카드가 건넨 숫자를 가볍게 품어 두세요.',
+        '작은 변화들이 모여 행운의 방향으로 움직이고 있습니다. 직감을 믿어 보세요.',
+        '좋은 기운이 차오르고 있습니다! 카드의 번호에 오늘의 행운을 실어 보세요.',
+        '세 장 모두 정방향, 우주가 활짝 웃고 있는 날입니다! 최고의 기운이 담긴 번호입니다.'
+      ];
+
+      tarotResult.innerHTML = `
+        <div class="fortune-stars">${'★'.repeat(2 + uprightCount)}${'☆'.repeat(3 - uprightCount)}</div>
+        <div class="fortune-title">"${tarotDraw[2].name} 카드가 비추는 당신의 행운"</div>
+        <p class="fortune-desc">${summaries[uprightCount]}</p>
+
+        <div class="tarot-readings">
+          ${tarotDraw.map((card, i) => `
+            <div class="tarot-reading">
+              <strong>${tarotSlotNames[i]} · ${card.emoji} ${card.name} (${card.reversed ? '역' : '정'})</strong><br>
+              ${card.reversed ? card.rev : card.up}
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="fortune-lotto-wrap">
+          <div class="fortune-lotto-title">
+            <span>🎱</span> 타로 연계 추천 번호
+          </div>
+          <div class="balls-list">
+            ${lastTarotNumbers.map((num, i) => `
+              <div class="ball ${getBallClass(num)}" style="animation-delay: ${i * 0.08}s">${num}</div>
+            `).join('')}
+          </div>
+          <div class="fortune-actions">
+            <button class="btn-sub" id="btn-tarot-copy">
+              <span>📋</span> 이 번호 복사
+            </button>
+            <button class="btn-sub" id="btn-tarot-apply">
+              <span>🎲</span> 메인 추첨기에 전송
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('btn-tarot-copy').addEventListener('click', () => {
+        const cardsText = tarotDraw.map((c, i) => `${tarotSlotNames[i]}: ${c.name}(${c.reversed ? '역' : '정'})`).join(' / ');
+        const text = `🃏 [타로 연계 로또 행운 번호]\n${cardsText}\n추천번호: ${lastTarotNumbers.map(n => String(n).padStart(2, ' ')).join(', ')}`;
+        copyText(text, '✅ 타로 로또 번호가 복사되었습니다!');
+      });
+
+      document.getElementById('btn-tarot-apply').addEventListener('click', () => {
+        applyToMainLotto(lastTarotNumbers, '타로', '🃏 타로 번호가 메인 추첨기에 적용되었습니다!');
+      });
+
+      playFortuneSound();
+      showToast('🃏 타로 해석과 연계 번호가 완성되었습니다!');
+    }
+
+    tarotCardEls.forEach((el, i) => {
+      el.addEventListener('click', () => {
+        const card = tarotDraw[i];
+        if (!card || card.flipped) return;
+        card.flipped = true;
+        el.classList.add('flipped');
+        el.disabled = true;
+        el.setAttribute('aria-label', `${tarotSlotNames[i]} 카드: ${card.name} ${card.reversed ? '역방향' : '정방향'}`);
+        playPopSound(480 + card.no * 20);
+
+        const flippedCount = tarotDraw.filter(c => c.flipped).length;
+        tarotHint.textContent = flippedCount < 3
+          ? `카드를 한 장씩 눌러 뒤집어 보세요 (${flippedCount} / 3)`
+          : '카드가 모두 펼쳐졌습니다 ✨';
+        if (flippedCount === 3) {
+          setTimeout(renderTarotResult, 500);
+        }
+      });
+    });
+
+    btnTarotShuffle.addEventListener('click', () => {
+      shuffleTarot();
+      showToast('🔀 카드를 새로 섞었습니다!');
+    });
+
+    shuffleTarot();
 
     /* ========================================================
        5. 화이트보드 (스케치북) 로직
