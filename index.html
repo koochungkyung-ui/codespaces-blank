@@ -1398,6 +1398,14 @@
       color: var(--text-muted);
       text-align: center;
     }
+    .page-links {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .page-links a {
+      color: inherit;
+    }
 
     /* ===== 한 화면 탭 레이아웃 ===== */
     html, body {
@@ -1791,11 +1799,13 @@
         </button>
         <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
         <p class="contact-note" data-i18n="contact.note">보내 주신 이름과 이메일은 문의 답변에만 사용합니다.</p>
+        <p class="page-links"><a href="about.html" data-i18n="link.about">사이트 소개</a> · <a href="privacy.html" data-i18n="link.privacy">개인정보처리방침</a></p>
       </form>
     </section>
 
     <footer class="footer">
       <p data-i18n="footer">© 행운의 로또 번호 추첨기 & 포춘 스케치북 | 건전한 복권 문화를 응원합니다.</p>
+      <p class="page-links"><a href="about.html" data-i18n="link.about">사이트 소개</a> · <a href="privacy.html" data-i18n="link.privacy">개인정보처리방침</a></p>
     </footer>
 
   </div>
@@ -1838,6 +1848,8 @@
         'contact.success': '✅ 문의가 접수되었습니다. 확인 후 이메일로 답변드릴게요!',
         'contact.error': '⚠️ 보내지 못했습니다. 잠시 후 다시 시도해 주세요.',
         'contact.note': '보내 주신 이름과 이메일은 문의 답변에만 사용합니다.',
+        'link.about': '사이트 소개',
+        'link.privacy': '개인정보처리방침',
 
         'lotto.title': '로또 번호 추천기',
         'lotto.subtitle': '버튼 하나로 당신만의 행운 번호를 뽑아보세요!',
@@ -2017,6 +2029,8 @@
         'contact.success': '✅ Thanks! We received your inquiry and will reply by email.',
         'contact.error': '⚠️ Couldn\'t send your message. Please try again later.',
         'contact.note': 'Your name and email are used only to reply to your inquiry.',
+        'link.about': 'About',
+        'link.privacy': 'Privacy Policy',
 
         'lotto.title': 'Lotto Number Picker',
         'lotto.subtitle': 'Draw your own lucky numbers with a single tap!',
@@ -2196,6 +2210,8 @@
         'contact.success': '✅ 已收到您的咨询，我们会尽快通过邮件回复！',
         'contact.error': '⚠️ 发送失败，请稍后再试。',
         'contact.note': '您提供的姓名和邮箱仅用于回复本次咨询。',
+        'link.about': '网站介绍',
+        'link.privacy': '隐私政策',
 
         'lotto.title': '乐透选号器',
         'lotto.subtitle': '一键抽出属于你的幸运号码！',
@@ -2375,6 +2391,8 @@
         'contact.success': '✅ お問い合わせを受け付けました。確認後、メールでご返信します！',
         'contact.error': '⚠️ 送信できませんでした。しばらくしてからもう一度お試しください。',
         'contact.note': 'お名前とメールアドレスはお問い合わせへの返信にのみ使用します。',
+        'link.about': 'サイト紹介',
+        'link.privacy': 'プライバシーポリシー',
 
         'lotto.title': 'ロト番号ジェネレーター',
         'lotto.subtitle': 'ボタンひとつであなただけのラッキーナンバーを！',
@@ -2580,6 +2598,10 @@
     tabButtons.forEach(btn => {
       btn.addEventListener('click', () => switchTab(btn.dataset.target));
     });
+    // 소개·개인정보 페이지의 "./#contact" 링크로 들어오면 그 탭을 바로 연다
+    if (location.hash && document.getElementById(location.hash.slice(1) + '-card')) {
+      switchTab(location.hash.slice(1) + '-card');
+    }
 
     /* ========================================================
        1. 다크 모드 관리 (Dark Mode)

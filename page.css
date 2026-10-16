@@ -1,0 +1,232 @@
+/* about.html · privacy.html 공용 스타일 (앱 index.html과 같은 색상) */
+:root {
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 45%, #fdf4ff 100%);
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(226, 232, 240, 0.85);
+  --card-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --sub-bg: #f8fafc;
+  --sub-border: #e2e8f0;
+  --primary: #6366f1;
+  --link: #4f46e5;
+}
+body.dark {
+  --bg-gradient: linear-gradient(135deg, #090d16 0%, #111827 50%, #1e1333 100%);
+  --card-bg: rgba(30, 41, 59, 0.88);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --sub-bg: #0f172a;
+  --sub-border: #334155;
+  --link: #a5b4fc;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.75;
+  padding: 20px 16px 48px;
+}
+
+.page-top {
+  max-width: 760px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.back-link {
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 8px 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 9999px;
+  box-shadow: var(--card-shadow);
+  white-space: nowrap;
+}
+.lang-switch {
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 9999px;
+  box-shadow: var(--card-shadow);
+}
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+.lang-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.doc {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  box-shadow: var(--card-shadow);
+  padding: 36px 32px;
+}
+.doc h1 {
+  font-size: 28px;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+.doc h2 {
+  font-size: 19px;
+  line-height: 1.4;
+  margin: 32px 0 10px;
+}
+.doc h3 {
+  font-size: 16px;
+  margin: 18px 0 6px;
+}
+.doc p,
+.doc li,
+.doc dd,
+.doc td,
+.doc th {
+  font-size: 15px;
+}
+.doc p + p {
+  margin-top: 8px;
+}
+.doc ul {
+  padding-left: 1.3em;
+}
+.doc li + li {
+  margin-top: 6px;
+}
+.doc a {
+  color: var(--link);
+  word-break: break-all;
+}
+.doc .lead {
+  color: var(--text-muted);
+}
+.doc .meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.doc .note {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 8px;
+}
+.doc table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.doc th,
+.doc td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--sub-border);
+  vertical-align: top;
+}
+.doc th {
+  background: var(--sub-bg);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.doc dl {
+  background: var(--sub-bg);
+  border: 1px solid var(--sub-border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-top: 10px;
+}
+.doc dt {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+.doc dd {
+  color: var(--text-main);
+}
+.doc dd span {
+  color: var(--text-muted);
+}
+
+.page-footer {
+  max-width: 760px;
+  margin: 20px auto 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.page-footer a {
+  color: var(--text-muted);
+}
+
+/* 언어별 내용: html의 data-lang과 같은 lang만 보인다 */
+.lang-block,
+.lang-inline {
+  display: none;
+}
+html[data-lang="ko"] .lang-block[lang="ko"],
+html[data-lang="en"] .lang-block[lang="en"],
+html[data-lang="zh"] .lang-block[lang="zh"],
+html[data-lang="ja"] .lang-block[lang="ja"] {
+  display: block;
+}
+html[data-lang="ko"] .lang-inline[lang="ko"],
+html[data-lang="en"] .lang-inline[lang="en"],
+html[data-lang="zh"] .lang-inline[lang="zh"],
+html[data-lang="ja"] .lang-inline[lang="ja"] {
+  display: inline;
+}
+
+@media (max-width: 540px) {
+  body {
+    padding: 12px 12px 36px;
+  }
+  .doc {
+    padding: 26px 18px;
+    border-radius: 20px;
+  }
+  .doc h1 {
+    font-size: 24px;
+  }
+  .doc h2 {
+    font-size: 17px;
+    margin-top: 26px;
+  }
+  .doc th,
+  .doc td {
+    padding: 7px 8px;
+    font-size: 14px;
+  }
+}
