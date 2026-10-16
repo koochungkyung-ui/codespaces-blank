@@ -1322,6 +1322,83 @@
       }
     }
 
+    /* 제휴 문의 폼 */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .contact-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .contact-field label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .contact-field input,
+    .contact-field textarea {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--sub-border);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      padding: 12px 14px;
+      font: inherit;
+      font-size: 15px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .contact-field textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+    .contact-field input::placeholder,
+    .contact-field textarea::placeholder {
+      color: var(--text-muted);
+    }
+    .contact-field input:focus,
+    .contact-field textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+    .contact-honeypot {
+      position: absolute;
+      left: -9999px;
+    }
+    .contact-form .btn-main:disabled {
+      opacity: 0.6;
+      cursor: wait;
+      transform: none;
+    }
+    .contact-status {
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .contact-status:empty {
+      display: none;
+    }
+    .contact-status.success {
+      color: #059669;
+    }
+    .contact-status.error {
+      color: #dc2626;
+    }
+    body.dark .contact-status.success {
+      color: #34d399;
+    }
+    body.dark .contact-status.error {
+      color: #f87171;
+    }
+    .contact-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
     /* ===== 한 화면 탭 레이아웃 ===== */
     html, body {
       height: 100%;
@@ -1401,10 +1478,19 @@
       .main-wrapper > .card {
         padding: 22px 16px;
       }
-      .tab-btn {
-        font-size: 13px;
-        padding: 10px 4px;
+      /* 탭 5개가 한 줄에 들어가도록 아이콘을 글자 위에 둔다 */
+      .tab-nav {
         gap: 4px;
+        padding: 5px;
+        border-radius: 20px;
+      }
+      .tab-btn {
+        flex-direction: column;
+        min-width: 0;
+        font-size: 12px;
+        padding: 7px 2px;
+        gap: 2px;
+        border-radius: 15px;
       }
       .footer {
         display: none;
@@ -1450,6 +1536,9 @@
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="whiteboard-card" data-target="whiteboard-card">
         <span>✏️</span> <span data-i18n="tab.sketch">스케치북</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="contact-card" data-target="contact-card">
+        <span>📮</span> <span data-i18n="tab.contact">제휴</span>
       </button>
     </nav>
 
@@ -1669,6 +1758,42 @@
       </div>
     </section>
 
+    <!-- 제휴 문의 섹션 (Formspree) -->
+    <section class="card" id="contact-card" role="tabpanel">
+      <header class="card-header">
+        <div class="badge">
+          <span>📮</span> <span data-i18n="contact.badge">제휴 · 광고 문의</span>
+        </div>
+        <h2 class="title" data-i18n="contact.title">제휴 문의하기</h2>
+        <p class="subtitle" data-i18n="contact.subtitle">광고, 협업, 제휴 제안을 남겨 주시면 이메일로 답변드립니다</p>
+      </header>
+
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/meaepwqd" method="POST">
+        <div class="contact-field">
+          <label for="contact-name" data-i18n="contact.name">이름 또는 회사명</label>
+          <input type="text" id="contact-name" name="name" required maxlength="100" autocomplete="name" placeholder="예) 홍길동 / 행운컴퍼니" data-i18n-placeholder="contact.namePh">
+        </div>
+        <div class="contact-field">
+          <label for="contact-email" data-i18n="contact.email">답변받을 이메일</label>
+          <input type="email" id="contact-email" name="email" required maxlength="200" autocomplete="email" placeholder="you@example.com">
+        </div>
+        <div class="contact-field">
+          <label for="contact-message" data-i18n="contact.message">문의 내용</label>
+          <textarea id="contact-message" name="message" required maxlength="5000" placeholder="제안 내용과 원하시는 일정 등을 자유롭게 적어 주세요" data-i18n-placeholder="contact.messagePh"></textarea>
+        </div>
+        <!-- 스팸 방지용 (사람에게는 보이지 않음) -->
+        <input type="text" name="_gotcha" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="_subject" value="[행운의 로또] 제휴 문의">
+        <input type="hidden" name="language" id="contact-language" value="ko">
+
+        <button type="submit" class="btn-main" id="btn-contact-submit">
+          <span>✉️</span> <span id="contact-submit-text">문의 보내기</span>
+        </button>
+        <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
+        <p class="contact-note" data-i18n="contact.note">보내 주신 이름과 이메일은 문의 답변에만 사용합니다.</p>
+      </form>
+    </section>
+
     <footer class="footer">
       <p data-i18n="footer">© 행운의 로또 번호 추첨기 & 포춘 스케치북 | 건전한 복권 문화를 응원합니다.</p>
     </footer>
@@ -1699,6 +1824,20 @@
         'tab.fortune': '운세',
         'tab.tarot': '타로',
         'tab.sketch': '스케치북',
+        'tab.contact': '제휴',
+        'contact.badge': '제휴 · 광고 문의',
+        'contact.title': '제휴 문의하기',
+        'contact.subtitle': '광고, 협업, 제휴 제안을 남겨 주시면 이메일로 답변드립니다',
+        'contact.name': '이름 또는 회사명',
+        'contact.namePh': '예) 홍길동 / 행운컴퍼니',
+        'contact.email': '답변받을 이메일',
+        'contact.message': '문의 내용',
+        'contact.messagePh': '제안 내용과 원하시는 일정 등을 자유롭게 적어 주세요',
+        'contact.submit': '문의 보내기',
+        'contact.sending': '보내는 중...',
+        'contact.success': '✅ 문의가 접수되었습니다. 확인 후 이메일로 답변드릴게요!',
+        'contact.error': '⚠️ 보내지 못했습니다. 잠시 후 다시 시도해 주세요.',
+        'contact.note': '보내 주신 이름과 이메일은 문의 답변에만 사용합니다.',
 
         'lotto.title': '로또 번호 추천기',
         'lotto.subtitle': '버튼 하나로 당신만의 행운 번호를 뽑아보세요!',
@@ -1864,6 +2003,20 @@
         'tab.fortune': 'Fortune',
         'tab.tarot': 'Tarot',
         'tab.sketch': 'Sketch',
+        'tab.contact': 'Contact',
+        'contact.badge': 'Partnerships & Ads',
+        'contact.title': 'Partnership Inquiry',
+        'contact.subtitle': 'Send us your ad, collaboration, or partnership proposal and we\'ll reply by email',
+        'contact.name': 'Name or company',
+        'contact.namePh': 'e.g. Jane Doe / Lucky Inc.',
+        'contact.email': 'Your email for our reply',
+        'contact.message': 'Message',
+        'contact.messagePh': 'Tell us about your proposal and preferred timeline',
+        'contact.submit': 'Send inquiry',
+        'contact.sending': 'Sending...',
+        'contact.success': '✅ Thanks! We received your inquiry and will reply by email.',
+        'contact.error': '⚠️ Couldn\'t send your message. Please try again later.',
+        'contact.note': 'Your name and email are used only to reply to your inquiry.',
 
         'lotto.title': 'Lotto Number Picker',
         'lotto.subtitle': 'Draw your own lucky numbers with a single tap!',
@@ -2029,6 +2182,20 @@
         'tab.fortune': '运势',
         'tab.tarot': '塔罗',
         'tab.sketch': '画板',
+        'tab.contact': '合作',
+        'contact.badge': '合作 · 广告咨询',
+        'contact.title': '合作咨询',
+        'contact.subtitle': '欢迎留下广告、协作或合作提案，我们会通过邮件回复您',
+        'contact.name': '姓名或公司名称',
+        'contact.namePh': '例：张三 / 幸运公司',
+        'contact.email': '接收回复的邮箱',
+        'contact.message': '咨询内容',
+        'contact.messagePh': '请自由填写提案内容和期望的时间安排',
+        'contact.submit': '发送咨询',
+        'contact.sending': '发送中...',
+        'contact.success': '✅ 已收到您的咨询，我们会尽快通过邮件回复！',
+        'contact.error': '⚠️ 发送失败，请稍后再试。',
+        'contact.note': '您提供的姓名和邮箱仅用于回复本次咨询。',
 
         'lotto.title': '乐透选号器',
         'lotto.subtitle': '一键抽出属于你的幸运号码！',
@@ -2194,6 +2361,20 @@
         'tab.fortune': '運勢',
         'tab.tarot': 'タロット',
         'tab.sketch': 'スケッチ',
+        'tab.contact': '提携',
+        'contact.badge': '提携・広告のお問い合わせ',
+        'contact.title': '提携のお問い合わせ',
+        'contact.subtitle': '広告・コラボ・提携のご提案をお送りいただければ、メールでご返信します',
+        'contact.name': 'お名前または会社名',
+        'contact.namePh': '例）山田太郎 / ラッキー株式会社',
+        'contact.email': '返信先メールアドレス',
+        'contact.message': 'お問い合わせ内容',
+        'contact.messagePh': 'ご提案内容やご希望のスケジュールなどをご自由にお書きください',
+        'contact.submit': '送信する',
+        'contact.sending': '送信中...',
+        'contact.success': '✅ お問い合わせを受け付けました。確認後、メールでご返信します！',
+        'contact.error': '⚠️ 送信できませんでした。しばらくしてからもう一度お試しください。',
+        'contact.note': 'お名前とメールアドレスはお問い合わせへの返信にのみ使用します。',
 
         'lotto.title': 'ロト番号ジェネレーター',
         'lotto.subtitle': 'ボタンひとつであなただけのラッキーナンバーを！',
@@ -3512,6 +3693,45 @@
     }
 
     /* ========================================================
+       6-1. 제휴 문의 폼 (Formspree)
+       ======================================================== */
+    const contactForm = document.getElementById('contact-form');
+    const contactSubmitBtn = document.getElementById('btn-contact-submit');
+    const contactSubmitText = document.getElementById('contact-submit-text');
+    const contactStatusEl = document.getElementById('contact-status');
+    let contactState = 'idle'; // idle | sending | success | error
+
+    function renderContactStatus() {
+      contactSubmitBtn.disabled = contactState === 'sending';
+      contactSubmitText.textContent = contactState === 'sending' ? t('contact.sending') : t('contact.submit');
+      contactStatusEl.className = 'contact-status' + (contactState === 'success' || contactState === 'error' ? ' ' + contactState : '');
+      contactStatusEl.textContent = contactState === 'success' ? t('contact.success')
+        : contactState === 'error' ? t('contact.error') : '';
+    }
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (contactState === 'sending') return;
+      document.getElementById('contact-language').value = currentLang;
+      contactState = 'sending';
+      renderContactStatus();
+      try {
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        contactForm.reset();
+        contactState = 'success';
+        playPopSound(880);
+      } catch (err) {
+        contactState = 'error';
+      }
+      renderContactStatus();
+    });
+
+    /* ========================================================
        7. 토스트 메시지
        ======================================================== */
     let toastTimeout;
@@ -3537,6 +3757,7 @@
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
       document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
       document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
 
       langButtons.forEach(btn => {
         const isActive = btn.dataset.lang === currentLang;
@@ -3551,6 +3772,7 @@
       renderFortune();
       renderTarotCards();
       renderTarotResult();
+      renderContactStatus();
 
       try { localStorage.setItem('app-lang', currentLang); } catch (e) {}
     }
