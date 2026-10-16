@@ -205,6 +205,50 @@
       line-height: 1.5;
     }
 
+    /* 복권 종류 선택 */
+    .lottery-select {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 2px 2px 4px;
+      margin-bottom: 8px;
+    }
+    .lottery-select::-webkit-scrollbar {
+      display: none;
+    }
+    .lottery-chip {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--sub-bg);
+      border: 1px solid var(--sub-border);
+      border-radius: 9999px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .lottery-chip:hover {
+      color: var(--text-main);
+    }
+    .lottery-chip.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+    .lottery-rule {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
     /* 옵션 탭 (게임 수 선택) */
     .game-mode-wrap {
       display: flex;
@@ -320,6 +364,31 @@
       background: radial-gradient(circle at 35% 35%, #4ade80, #10b981 70%, #047857);
     }
 
+    /* 해외 복권 공 색상 */
+    .ball.ball-white {
+      background: radial-gradient(circle at 35% 35%, #ffffff, #e2e8f0 70%, #94a3b8);
+      color: #0f172a;
+      text-shadow: none;
+    }
+    .ball.ball-red {
+      background: radial-gradient(circle at 35% 35%, #fca5a5, #dc2626 70%, #991b1b);
+    }
+    .ball.ball-gold {
+      background: radial-gradient(circle at 35% 35%, #fde68a, #eab308 70%, #a16207);
+    }
+    .ball.ball-star {
+      background: radial-gradient(circle at 35% 35%, #fef08a, #facc15 60%, #ca8a04);
+      color: #422006;
+      text-shadow: none;
+      border-radius: 30%;
+    }
+    .ball.ball-orange {
+      background: radial-gradient(circle at 35% 35%, #fdba74, #f97316 70%, #c2410c);
+    }
+    .ball.bonus-first {
+      margin-left: 8px;
+    }
+
     @keyframes popBall {
       0% { transform: scale(0) rotate(-45deg); opacity: 0; }
       80% { transform: scale(1.15) rotate(5deg); }
@@ -389,6 +458,18 @@
     .secondary-actions {
       display: flex;
       gap: 10px;
+    }
+
+    .lottery-link {
+      flex: none;
+      width: 100%;
+      text-decoration: none;
+      color: var(--primary);
+      border-style: dashed;
+    }
+
+    body.dark .lottery-link {
+      color: #a5b4fc;
     }
 
     .btn-sub {
@@ -1138,6 +1219,21 @@
       .lotto-game-row {
         padding: 12px 10px;
       }
+      .lottery-chip {
+        padding: 7px 12px;
+        font-size: 12px;
+      }
+      .balls-list.compact {
+        gap: 4px;
+      }
+      .balls-list.compact .ball {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+      }
+      .balls-list.compact .ball.bonus-first {
+        margin-left: 6px;
+      }
       .theme-toggle {
         top: 14px;
         right: 14px;
@@ -1279,11 +1375,21 @@
     <section class="card active" id="lotto-card" role="tabpanel">
       <header class="card-header">
         <div class="badge">
-          <span>🍀</span> 행운의 6/45
+          <span id="lottery-badge-icon">🍀</span> <span id="lottery-badge-text">행운의 6/45</span>
         </div>
         <h1 class="title">로또 번호 추천기</h1>
         <p class="subtitle">버튼 하나로 당신만의 행운 번호를 뽑아보세요!</p>
       </header>
+
+      <!-- 복권 종류 선택 -->
+      <div class="lottery-select" role="radiogroup" aria-label="복권 종류">
+        <button class="lottery-chip active" data-lottery="kr" role="radio" aria-checked="true">🇰🇷 로또 6/45</button>
+        <button class="lottery-chip" data-lottery="powerball" role="radio" aria-checked="false">🇺🇸 파워볼</button>
+        <button class="lottery-chip" data-lottery="megamillions" role="radio" aria-checked="false">🇺🇸 메가밀리언</button>
+        <button class="lottery-chip" data-lottery="euromillions" role="radio" aria-checked="false">🇪🇺 유로밀리언</button>
+        <button class="lottery-chip" data-lottery="eurojackpot" role="radio" aria-checked="false">🇪🇺 유로잭팟</button>
+      </div>
+      <p class="lottery-rule" id="lottery-rule">1~45 중 번호 6개</p>
 
       <!-- 게임 수 선택 (1게임 / 5게임) -->
       <div class="game-mode-wrap">
@@ -1313,10 +1419,14 @@
             <span>🔄</span> 초기화
           </button>
         </div>
+
+        <a class="btn-sub lottery-link" id="lottery-link" href="https://www.dhlottery.co.kr/" target="_blank" rel="noopener noreferrer">
+          <span>🔗</span> <span id="lottery-link-text">동행복권 공식 홈페이지</span>
+        </a>
       </div>
 
-      <!-- 색상 가이드 -->
-      <div class="color-legend">
+      <!-- 색상 가이드 (한국 로또 전용) -->
+      <div class="color-legend" id="color-legend">
         <div class="legend-item"><span class="legend-dot dot-yellow"></span>1 ~ 10</div>
         <div class="legend-item"><span class="legend-dot dot-blue"></span>11 ~ 20</div>
         <div class="legend-item"><span class="legend-dot dot-red"></span>21 ~ 30</div>
@@ -1608,8 +1718,51 @@
     /* ========================================================
        3. 로또 번호 추첨 로직
        ======================================================== */
+    // 복권 종류별 규칙 (main: 기본 번호, bonus: 보너스 번호)
+    const lotteryTypes = {
+      kr: {
+        icon: '🍀', name: '로또 6/45', badge: '행운의 6/45',
+        main: { count: 6, max: 45 }, bonus: null,
+        rule: '1~45 중 번호 6개',
+        site: 'https://www.dhlottery.co.kr/', siteName: '동행복권 공식 홈페이지'
+      },
+      powerball: {
+        icon: '🇺🇸', name: '파워볼 (Powerball)', badge: '미국 Powerball',
+        main: { count: 5, max: 69 }, bonus: { count: 1, max: 26, label: '파워볼', cls: 'ball-red' },
+        rule: '흰 공 5개 (1~69) + 빨간 파워볼 1개 (1~26)',
+        site: 'https://www.powerball.com/', siteName: 'Powerball 공식 홈페이지'
+      },
+      megamillions: {
+        icon: '🇺🇸', name: '메가밀리언 (Mega Millions)', badge: '미국 Mega Millions',
+        main: { count: 5, max: 70 }, bonus: { count: 1, max: 24, label: '메가볼', cls: 'ball-gold' },
+        rule: '흰 공 5개 (1~70) + 금색 메가볼 1개 (1~24)',
+        site: 'https://www.megamillions.com/', siteName: 'Mega Millions 공식 홈페이지'
+      },
+      euromillions: {
+        icon: '🇪🇺', name: '유로밀리언 (EuroMillions)', badge: '유럽 EuroMillions',
+        main: { count: 5, max: 50 }, bonus: { count: 2, max: 12, label: '럭키스타', cls: 'ball-star' },
+        rule: '번호 5개 (1~50) + 럭키스타 2개 (1~12)',
+        site: 'https://www.national-lottery.co.uk/games/euromillions', siteName: 'EuroMillions 공식 페이지 (영국)'
+      },
+      eurojackpot: {
+        icon: '🇪🇺', name: '유로잭팟 (Eurojackpot)', badge: '유럽 Eurojackpot',
+        main: { count: 5, max: 50 }, bonus: { count: 2, max: 12, label: '유로 넘버', cls: 'ball-orange' },
+        rule: '번호 5개 (1~50) + 유로 넘버 2개 (1~12)',
+        site: 'https://www.eurojackpot.com/', siteName: 'Eurojackpot 공식 홈페이지'
+      }
+    };
+
+    let currentLottery = 'kr';
     let currentCount = 1;
     let generatedSets = [];
+
+    const lotteryChips = document.querySelectorAll('.lottery-chip');
+    const lotteryRule = document.getElementById('lottery-rule');
+    const lotteryBadgeIcon = document.getElementById('lottery-badge-icon');
+    const lotteryBadgeText = document.getElementById('lottery-badge-text');
+    const colorLegend = document.getElementById('color-legend');
+    const lotteryLink = document.getElementById('lottery-link');
+    const lotteryLinkText = document.getElementById('lottery-link-text');
 
     const resultsArea = document.getElementById('results-area');
     const placeholder = document.getElementById('placeholder');
@@ -1619,6 +1772,33 @@
     const tab1 = document.getElementById('tab-1');
     const tab5 = document.getElementById('tab-5');
     const toast = document.getElementById('toast');
+
+    function selectLottery(key, regenerate = true) {
+      if (!lotteryTypes[key]) return;
+      const changed = currentLottery !== key;
+      currentLottery = key;
+      const lottery = lotteryTypes[key];
+
+      lotteryChips.forEach(chip => {
+        const isActive = chip.dataset.lottery === key;
+        chip.classList.toggle('active', isActive);
+        chip.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      });
+      lotteryBadgeIcon.textContent = lottery.icon;
+      lotteryBadgeText.textContent = lottery.badge;
+      lotteryRule.textContent = lottery.rule;
+      colorLegend.style.display = key === 'kr' ? '' : 'none';
+      lotteryLink.href = lottery.site;
+      lotteryLinkText.textContent = lottery.siteName;
+
+      if (regenerate && changed && generatedSets.length > 0) {
+        generateLottoNumbers();
+      }
+    }
+
+    lotteryChips.forEach(chip => {
+      chip.addEventListener('click', () => selectLottery(chip.dataset.lottery));
+    });
 
     tab1.addEventListener('click', () => switchCount(1));
     tab5.addEventListener('click', () => switchCount(5));
@@ -1633,12 +1813,33 @@
       }
     }
 
-    function pickSingleSet() {
+    function pickUnique(count, max) {
       const numbers = new Set();
-      while (numbers.size < 6) {
-        numbers.add(Math.floor(Math.random() * 45) + 1);
+      while (numbers.size < count) {
+        numbers.add(Math.floor(Math.random() * max) + 1);
       }
       return Array.from(numbers).sort((a, b) => a - b);
+    }
+
+    function pickSingleSet() {
+      const lottery = lotteryTypes[currentLottery];
+      return {
+        main: pickUnique(lottery.main.count, lottery.main.max),
+        bonus: lottery.bonus ? pickUnique(lottery.bonus.count, lottery.bonus.max) : []
+      };
+    }
+
+    // 공 하나의 색상 클래스 (한국 로또는 번호대별 색, 해외 복권은 흰 공 + 보너스 색)
+    function getSetBallClasses(set, lottery) {
+      const mainCls = set.main.map(num => lottery.bonus ? 'ball-white' : getBallClass(num));
+      const bonusCls = set.bonus.map((num, i) => `${lottery.bonus.cls} bonus${i === 0 ? ' bonus-first' : ''}`);
+      return [...mainCls, ...bonusCls];
+    }
+
+    function formatSetText(set, lottery) {
+      const mainText = set.main.map(n => String(n).padStart(2, ' ')).join(', ');
+      if (!set.bonus.length) return mainText;
+      return `${mainText} + ${lottery.bonus.label} ${set.bonus.join(', ')}`;
     }
 
     function getBallClass(num) {
@@ -1654,9 +1855,13 @@
       resultsArea.innerHTML = '';
       const labels = ['A', 'B', 'C', 'D', 'E'];
 
+      const lottery = lotteryTypes[currentLottery];
+
       for (let i = 0; i < currentCount; i++) {
-        const numbers = pickSingleSet();
-        generatedSets.push(numbers);
+        const set = pickSingleSet();
+        generatedSets.push(set);
+        const numbers = [...set.main, ...set.bonus];
+        const ballClasses = getSetBallClasses(set, lottery);
 
         const row = document.createElement('div');
         row.className = 'lotto-game-row';
@@ -1669,11 +1874,11 @@
         }
 
         const ballsList = document.createElement('div');
-        ballsList.className = 'balls-list';
+        ballsList.className = numbers.length > 6 ? 'balls-list compact' : 'balls-list';
 
         numbers.forEach((num, index) => {
           const ball = document.createElement('div');
-          ball.className = `ball ${getBallClass(num)}`;
+          ball.className = `ball ${ballClasses[index]}`;
           ball.textContent = num;
           const delay = (i * 0.08) + (index * 0.06);
           ball.style.animationDelay = `${delay}s`;
@@ -1696,11 +1901,12 @@
     btnCopy.addEventListener('click', () => {
       if (generatedSets.length === 0) return;
       const labels = ['A', 'B', 'C', 'D', 'E'];
-      let text = '🍀 [행운의 로또 번호 추천]\n';
+      const lottery = lotteryTypes[currentLottery];
+      let text = `🍀 [${lottery.name} 행운 번호 추천]\n`;
 
       generatedSets.forEach((set, idx) => {
         const line = currentCount > 1 ? `${labels[idx]}게임: ` : '추천번호: ';
-        text += `${line}${set.map(n => String(n).padStart(2, ' ')).join(', ')}\n`;
+        text += `${line}${formatSetText(set, lottery)}\n`;
       });
 
       navigator.clipboard.writeText(text.trim()).then(() => {
@@ -2111,7 +2317,8 @@
 
     // 연계 번호를 메인 추첨기에 1게임으로 적용하고 로또 탭으로 이동
     function applyToMainLotto(numbers, tagLabel, message) {
-      generatedSets = [numbers];
+      selectLottery('kr', false);
+      generatedSets = [{ main: numbers, bonus: [] }];
       currentCount = 1;
       tab1.classList.add('active');
       tab5.classList.remove('active');
