@@ -3,13 +3,14 @@
 빌드 도구 없이 `index.html` 한 파일(HTML·CSS·JS)로 만든 정적 웹앱입니다. 화면 하나에 탭 4개(🍀 로또 · 🔮 운세 · 🃏 타로 · ✏️ 스케치북)가 있고, 한국어·영어·중국어·일본어를 지원합니다.
 
 - 사이트: https://codespaces-blank-d5v.pages.dev/
-- 저장소: https://github.com/koochungkyung-ui/codespaces-blank (공개)
+- 저장소: https://github.com/koochungkyung-ui/lucky-lotto (공개, 2026-10-16에 `codespaces-blank`에서 이름 변경)
+- Codespace 안의 작업 폴더 이름은 예전 그대로 `/workspaces/codespaces-blank`입니다. Cloudflare 프로젝트 이름과 `*.pages.dev` 주소도 예전 이름을 그대로 씁니다.
 
 ## 배포
 
 - `main`에 푸시하면 Cloudflare Pages(프로젝트 `codespaces-blank`)가 자동으로 배포합니다. 빌드 단계는 없고, 저장소 루트가 그대로 공개됩니다. 그래서 이 파일도 `/CLAUDE.md` 주소로 누구나 볼 수 있으니 비밀 정보는 넣지 않습니다.
 - 배포 결과는 커밋의 체크 런으로 확인합니다.
-  `gh api repos/koochungkyung-ui/codespaces-blank/commits/<sha>/check-runs` → `cloudflare-workers-and-pages` 항목
+  `gh api repos/koochungkyung-ui/lucky-lotto/commits/<sha>/check-runs` → `cloudflare-workers-and-pages` 항목
 - GitHub Pages는 꺼 두었습니다. Cloudflare만 씁니다.
 - Codespace에 기본으로 들어 있는 `GITHUB_TOKEN`으로는 이 저장소에 푸시만 할 수 있습니다. 저장소 설정(공개 여부, Pages 등)은 바꿀 수 없으니, 그런 작업은 사용자에게 GitHub 웹 화면에서 하도록 안내합니다.
 - 커밋, 푸시, 배포는 사용자가 요청할 때만 합니다.
