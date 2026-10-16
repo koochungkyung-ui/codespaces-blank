@@ -58,6 +58,7 @@
 ## 소개·개인정보처리방침 페이지
 
 - `about.html`(사이트 소개)과 `privacy.html`(개인정보처리방침)은 앱과 따로 있는 일반 글 페이지입니다. AdSense 심사와 검색엔진을 위해 만들었습니다. 공용 파일은 `page.css`, `page.js`입니다.
+- Cloudflare Pages는 `.html`을 뗀 주소로 자동 이동시킵니다(`/about.html` → `/about`). 그래서 `canonical` 태그와 외부에 알리는 주소(AdSense 등)는 `/about`, `/privacy`를 씁니다.
 - 4개 언어 내용이 HTML에 모두 들어 있고(`<article class="lang-block" lang="..">`), `page.js`가 앱과 같은 `localStorage` 값(`app-lang`, `app-theme`)을 읽어서 한 언어만 보여 줍니다. 이 페이지들은 `I18N` 사전을 쓰지 않으므로, 문구를 고칠 때는 4개 `article`을 모두 고칩니다.
 - 앱에서는 📮 제휴 탭 아래와 하단 푸터에서 링크합니다. 두 페이지에서 앱으로 갈 때 `./#contact`로 링크하면 제휴 탭이 바로 열립니다(해시 이름 + `-card`인 탭을 엽니다).
 - 앱에 새 기능을 넣거나 보내는 데이터가 바뀌면 두 페이지 내용도 맞춰 고칩니다(특히 개인정보처리방침의 수집 항목과 처리 업체).
