@@ -1248,6 +1248,54 @@
       }
     }
 
+    /* 언어 선택 버튼 */
+    .lang-switch {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      display: flex;
+      gap: 2px;
+      padding: 4px;
+      background: var(--theme-btn-bg);
+      border: 1px solid var(--theme-btn-border);
+      border-radius: 9999px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+    .lang-btn {
+      min-width: 34px;
+      padding: 5px 9px;
+      border: none;
+      border-radius: 9999px;
+      background: transparent;
+      color: var(--theme-btn-text);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .lang-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    .lang-btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    @media (max-width: 540px) {
+      .lang-switch {
+        top: 14px;
+        left: 12px;
+        padding: 3px;
+      }
+      .lang-btn {
+        min-width: 30px;
+        padding: 4px 7px;
+        font-size: 12px;
+      }
+    }
+
     /* ===== 한 화면 탭 레이아웃 ===== */
     html, body {
       height: 100%;
@@ -1348,26 +1396,34 @@
   <canvas id="confetti-canvas"></canvas>
 
   <!-- 다크 모드 토글 버튼 -->
-  <button class="theme-toggle" id="theme-toggle" aria-label="테마 전환">
+  <button class="theme-toggle" id="theme-toggle" aria-label="테마 전환" data-i18n-aria="theme.aria">
     <span class="icon" id="theme-icon">🌙</span>
     <span id="theme-text">다크모드</span>
   </button>
 
+  <!-- 언어 선택 -->
+  <div class="lang-switch" role="group" aria-label="언어 선택" data-i18n-aria="lang.aria">
+    <button class="lang-btn" data-lang="ko" lang="ko" aria-label="한국어">한</button>
+    <button class="lang-btn" data-lang="en" lang="en" aria-label="English">EN</button>
+    <button class="lang-btn" data-lang="zh" lang="zh" aria-label="中文">中</button>
+    <button class="lang-btn" data-lang="ja" lang="ja" aria-label="日本語">日</button>
+  </div>
+
   <div class="main-wrapper">
 
     <!-- 탭 네비게이션 -->
-    <nav class="tab-nav" role="tablist" aria-label="메뉴">
+    <nav class="tab-nav" role="tablist" aria-label="메뉴" data-i18n-aria="nav.aria">
       <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="lotto-card" data-target="lotto-card">
-        <span>🍀</span> 로또
+        <span>🍀</span> <span data-i18n="tab.lotto">로또</span>
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="fortune-card" data-target="fortune-card">
-        <span>🔮</span> 운세
+        <span>🔮</span> <span data-i18n="tab.fortune">운세</span>
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tarot-card" data-target="tarot-card">
-        <span>🃏</span> 타로
+        <span>🃏</span> <span data-i18n="tab.tarot">타로</span>
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="whiteboard-card" data-target="whiteboard-card">
-        <span>✏️</span> 스케치북
+        <span>✏️</span> <span data-i18n="tab.sketch">스케치북</span>
       </button>
     </nav>
 
@@ -1377,46 +1433,46 @@
         <div class="badge">
           <span id="lottery-badge-icon">🍀</span> <span id="lottery-badge-text">행운의 6/45</span>
         </div>
-        <h1 class="title">로또 번호 추천기</h1>
-        <p class="subtitle">버튼 하나로 당신만의 행운 번호를 뽑아보세요!</p>
+        <h1 class="title" data-i18n="lotto.title">로또 번호 추천기</h1>
+        <p class="subtitle" data-i18n="lotto.subtitle">버튼 하나로 당신만의 행운 번호를 뽑아보세요!</p>
       </header>
 
       <!-- 복권 종류 선택 -->
-      <div class="lottery-select" role="radiogroup" aria-label="복권 종류">
-        <button class="lottery-chip active" data-lottery="kr" role="radio" aria-checked="true">🇰🇷 로또 6/45</button>
-        <button class="lottery-chip" data-lottery="powerball" role="radio" aria-checked="false">🇺🇸 파워볼</button>
-        <button class="lottery-chip" data-lottery="megamillions" role="radio" aria-checked="false">🇺🇸 메가밀리언</button>
-        <button class="lottery-chip" data-lottery="euromillions" role="radio" aria-checked="false">🇪🇺 유로밀리언</button>
-        <button class="lottery-chip" data-lottery="eurojackpot" role="radio" aria-checked="false">🇪🇺 유로잭팟</button>
+      <div class="lottery-select" role="radiogroup" aria-label="복권 종류" data-i18n-aria="lotto.lotteryAria">
+        <button class="lottery-chip active" data-lottery="kr" data-i18n="lot.kr.chip" role="radio" aria-checked="true">🇰🇷 로또 6/45</button>
+        <button class="lottery-chip" data-lottery="powerball" data-i18n="lot.powerball.chip" role="radio" aria-checked="false">🇺🇸 파워볼</button>
+        <button class="lottery-chip" data-lottery="megamillions" data-i18n="lot.megamillions.chip" role="radio" aria-checked="false">🇺🇸 메가밀리언</button>
+        <button class="lottery-chip" data-lottery="euromillions" data-i18n="lot.euromillions.chip" role="radio" aria-checked="false">🇪🇺 유로밀리언</button>
+        <button class="lottery-chip" data-lottery="eurojackpot" data-i18n="lot.eurojackpot.chip" role="radio" aria-checked="false">🇪🇺 유로잭팟</button>
       </div>
       <p class="lottery-rule" id="lottery-rule">1~45 중 번호 6개</p>
 
       <!-- 게임 수 선택 (1게임 / 5게임) -->
       <div class="game-mode-wrap">
-        <button class="game-tab active" data-count="1" id="tab-1">1게임 (1줄)</button>
-        <button class="game-tab" data-count="5" id="tab-5">5게임 (1세트 / A~E)</button>
+        <button class="game-tab active" data-count="1" id="tab-1" data-i18n="lotto.game1">1게임 (1줄)</button>
+        <button class="game-tab" data-count="5" id="tab-5" data-i18n="lotto.game5">5게임 (1세트 / A~E)</button>
       </div>
 
       <!-- 결과 영역 -->
       <div class="results-area" id="results-area">
         <div class="placeholder-box" id="placeholder">
           <div class="icon">🎱</div>
-          <p>아래 '번호 추첨하기' 버튼을 눌러주세요!</p>
+          <p data-i18n="lotto.placeholder">아래 '번호 추첨하기' 버튼을 눌러주세요!</p>
         </div>
       </div>
 
       <!-- 버튼 영역 -->
       <div class="actions">
         <button class="btn-main" id="btn-generate">
-          <span>🎲</span> 행운의 번호 추첨하기
+          <span>🎲</span> <span data-i18n="lotto.generate">행운의 번호 추첨하기</span>
         </button>
 
         <div class="secondary-actions">
           <button class="btn-sub" id="btn-copy" disabled>
-            <span>📋</span> 번호 복사
+            <span>📋</span> <span data-i18n="lotto.copy">번호 복사</span>
           </button>
           <button class="btn-sub" id="btn-reset">
-            <span>🔄</span> 초기화
+            <span>🔄</span> <span data-i18n="lotto.reset">초기화</span>
           </button>
         </div>
 
@@ -1439,16 +1495,16 @@
     <section class="card" id="fortune-card" role="tabpanel">
       <header class="card-header">
         <div class="badge">
-          <span>🔮</span> 행운 점성술 & 사주
+          <span>🔮</span> <span data-i18n="fortune.badge">행운 점성술 & 사주</span>
         </div>
-        <h2 class="title">나의 맞춤 운세 & 로또 번호</h2>
-        <p class="subtitle">생년월일을 입력하면 오늘의 운세와 기운이 담긴 번호가 연계 생성됩니다</p>
+        <h2 class="title" data-i18n="fortune.title">나의 맞춤 운세 & 로또 번호</h2>
+        <p class="subtitle" data-i18n="fortune.subtitle">생년월일을 입력하면 오늘의 운세와 기운이 담긴 번호가 연계 생성됩니다</p>
       </header>
 
       <!-- 생년월일 입력 컨트롤 (커스텀 달력 피커) -->
       <div class="birth-select-wrap" id="birth-select-container">
         <label class="birth-label">
-          <span>🎂</span> 나의 생년월일 선택 (달력)
+          <span>🎂</span> <span data-i18n="fortune.birthLabel">나의 생년월일 선택 (달력)</span>
         </label>
         <div class="birth-input-row">
           <!-- 날짜 표시 및 달력 열기 버튼 -->
@@ -1460,37 +1516,37 @@
           <input type="hidden" id="birth-date" value="1996-01-01">
 
           <button class="btn-main btn-fortune" id="btn-fortune">
-            <span>✨</span> 맞춤 운세 & 로또 번호 뽑기
+            <span>✨</span> <span data-i18n="fortune.button">맞춤 운세 & 로또 번호 뽑기</span>
           </button>
         </div>
 
         <!-- 커스텀 달력 팝오버 -->
-        <div class="calendar-popover" id="calendar-popover" role="dialog" aria-label="생년월일 달력">
+        <div class="calendar-popover" id="calendar-popover" role="dialog" aria-label="생년월일 달력" data-i18n-aria="cal.aria">
           <div class="calendar-header">
-            <button type="button" class="calendar-nav-btn" id="cal-prev-month" title="이전 달">&lt;</button>
+            <button type="button" class="calendar-nav-btn" id="cal-prev-month" title="이전 달" data-i18n-title="cal.prev" data-i18n-aria="cal.prev">&lt;</button>
             <div class="calendar-select-group">
-              <select id="cal-year-select" class="calendar-select" aria-label="연도 선택"></select>
-              <select id="cal-month-select" class="calendar-select" aria-label="월 선택"></select>
+              <select id="cal-year-select" class="calendar-select" aria-label="연도 선택" data-i18n-aria="cal.yearAria"></select>
+              <select id="cal-month-select" class="calendar-select" aria-label="월 선택" data-i18n-aria="cal.monthAria"></select>
             </div>
-            <button type="button" class="calendar-nav-btn" id="cal-next-month" title="다음 달">&gt;</button>
+            <button type="button" class="calendar-nav-btn" id="cal-next-month" title="다음 달" data-i18n-title="cal.next" data-i18n-aria="cal.next">&gt;</button>
           </div>
 
           <div class="calendar-grid">
-            <div class="calendar-day-head sun">일</div>
-            <div class="calendar-day-head">월</div>
-            <div class="calendar-day-head">화</div>
-            <div class="calendar-day-head">수</div>
-            <div class="calendar-day-head">목</div>
-            <div class="calendar-day-head">금</div>
-            <div class="calendar-day-head sat">토</div>
+            <div class="calendar-day-head sun" data-dow="0">일</div>
+            <div class="calendar-day-head" data-dow="1">월</div>
+            <div class="calendar-day-head" data-dow="2">화</div>
+            <div class="calendar-day-head" data-dow="3">수</div>
+            <div class="calendar-day-head" data-dow="4">목</div>
+            <div class="calendar-day-head" data-dow="5">금</div>
+            <div class="calendar-day-head sat" data-dow="6">토</div>
           </div>
           <div class="calendar-grid" id="calendar-days-body">
             <!-- 자바스크립트로 일별 버튼 동적 렌더링 -->
           </div>
 
           <div class="calendar-footer">
-            <button type="button" class="calendar-footer-btn" id="cal-today-btn">오늘 날짜</button>
-            <button type="button" class="calendar-footer-btn" id="cal-close-btn" style="background: #a855f7; color: #fff; border-color: #a855f7;">선택 완료</button>
+            <button type="button" class="calendar-footer-btn" id="cal-today-btn" data-i18n="cal.today">오늘 날짜</button>
+            <button type="button" class="calendar-footer-btn" id="cal-close-btn" style="background: #a855f7; color: #fff; border-color: #a855f7;" data-i18n="cal.done">선택 완료</button>
           </div>
         </div>
       </div>
@@ -1498,7 +1554,7 @@
       <div class="fortune-box" id="fortune-box">
         <div class="fortune-crystal" id="fortune-crystal">🔮</div>
         <div class="fortune-content" id="fortune-content">
-          <p class="fortune-desc">생년월일을 선택하고 버튼을 누르면 오늘의 맞춤 운세와 연계 번호를 확인하실 수 있습니다!</p>
+          <p class="fortune-desc" data-i18n="fortune.placeholder">생년월일을 선택하고 버튼을 누르면 오늘의 맞춤 운세와 연계 번호를 확인하실 수 있습니다!</p>
         </div>
       </div>
     </section>
@@ -1507,23 +1563,23 @@
     <section class="card" id="tarot-card" role="tabpanel">
       <header class="card-header">
         <div class="badge">
-          <span>🃏</span> 오늘의 타로
+          <span>🃏</span> <span data-i18n="tarot.badge">오늘의 타로</span>
         </div>
-        <h2 class="title">타로 카드 & 행운 번호</h2>
-        <p class="subtitle">카드 3장을 뒤집으면 카드의 기운이 담긴 번호가 만들어집니다</p>
+        <h2 class="title" data-i18n="tarot.title">타로 카드 & 행운 번호</h2>
+        <p class="subtitle" data-i18n="tarot.subtitle">카드 3장을 뒤집으면 카드의 기운이 담긴 번호가 만들어집니다</p>
       </header>
 
       <div class="tarot-spread" id="tarot-spread">
         <div class="tarot-slot">
-          <span class="tarot-slot-label">과거</span>
+          <span class="tarot-slot-label" data-i18n="tarot.slot0">과거</span>
           <button class="tarot-card" data-slot="0" aria-label="과거 카드 뒤집기"></button>
         </div>
         <div class="tarot-slot">
-          <span class="tarot-slot-label">현재</span>
+          <span class="tarot-slot-label" data-i18n="tarot.slot1">현재</span>
           <button class="tarot-card" data-slot="1" aria-label="현재 카드 뒤집기"></button>
         </div>
         <div class="tarot-slot">
-          <span class="tarot-slot-label">미래</span>
+          <span class="tarot-slot-label" data-i18n="tarot.slot2">미래</span>
           <button class="tarot-card" data-slot="2" aria-label="미래 카드 뒤집기"></button>
         </div>
       </div>
@@ -1536,7 +1592,7 @@
 
       <div class="tarot-actions">
         <button class="btn-sub" id="btn-tarot-shuffle">
-          <span>🔀</span> 카드 다시 섞기
+          <span>🔀</span> <span data-i18n="tarot.shuffle">카드 다시 섞기</span>
         </button>
       </div>
     </section>
@@ -1545,27 +1601,27 @@
     <section class="card" id="whiteboard-card" role="tabpanel">
       <header class="card-header">
         <div class="badge">
-          <span>✏️</span> 번호 낙서장
+          <span>✏️</span> <span data-i18n="sketch.badge">번호 낙서장</span>
         </div>
-        <h2 class="title">행운의 스케치북</h2>
-        <p class="subtitle">꿈에 나온 숫자나 떠오르는 영감을 자유롭게 적어보세요</p>
+        <h2 class="title" data-i18n="sketch.title">행운의 스케치북</h2>
+        <p class="subtitle" data-i18n="sketch.subtitle">꿈에 나온 숫자나 떠오르는 영감을 자유롭게 적어보세요</p>
       </header>
 
       <!-- 화이트보드 툴바 -->
       <div class="whiteboard-toolbar">
         <div class="tool-group">
-          <button class="color-btn active" data-color="#0f172a" style="background: #0f172a;" title="검정 / 기본"></button>
-          <button class="color-btn" data-color="#ef4444" style="background: #ef4444;" title="빨강"></button>
-          <button class="color-btn" data-color="#3b82f6" style="background: #3b82f6;" title="파랑"></button>
-          <button class="color-btn" data-color="#10b981" style="background: #10b981;" title="초록"></button>
-          <button class="color-btn" data-color="#f59e0b" style="background: #f59e0b;" title="황금"></button>
-          <button class="color-btn" data-color="#a855f7" style="background: #a855f7;" title="보라"></button>
+          <button class="color-btn active" data-color="#0f172a" style="background: #0f172a;" title="검정 / 기본" data-i18n-title="sketch.black" data-i18n-aria="sketch.black"></button>
+          <button class="color-btn" data-color="#ef4444" style="background: #ef4444;" title="빨강" data-i18n-title="sketch.red" data-i18n-aria="sketch.red"></button>
+          <button class="color-btn" data-color="#3b82f6" style="background: #3b82f6;" title="파랑" data-i18n-title="sketch.blue" data-i18n-aria="sketch.blue"></button>
+          <button class="color-btn" data-color="#10b981" style="background: #10b981;" title="초록" data-i18n-title="sketch.green" data-i18n-aria="sketch.green"></button>
+          <button class="color-btn" data-color="#f59e0b" style="background: #f59e0b;" title="황금" data-i18n-title="sketch.gold" data-i18n-aria="sketch.gold"></button>
+          <button class="color-btn" data-color="#a855f7" style="background: #a855f7;" title="보라" data-i18n-title="sketch.purple" data-i18n-aria="sketch.purple"></button>
         </div>
 
         <div class="tool-group">
-          <button class="size-btn" data-size="2">얇게</button>
-          <button class="size-btn active" data-size="4">보통</button>
-          <button class="size-btn" data-size="8">굵게</button>
+          <button class="size-btn" data-size="2" data-i18n="sketch.thin">얇게</button>
+          <button class="size-btn active" data-size="4" data-i18n="sketch.normal">보통</button>
+          <button class="size-btn" data-size="8" data-i18n="sketch.thick">굵게</button>
         </div>
       </div>
 
@@ -1576,31 +1632,728 @@
 
       <div class="whiteboard-actions">
         <button class="btn-sub" id="btn-wb-eraser">
-          <span>🧹</span> 지우개
+          <span>🧹</span> <span data-i18n="sketch.eraser">지우개</span>
         </button>
         <button class="btn-sub" id="btn-wb-clear">
-          <span>🗑️</span> 전체 지우기
+          <span>🗑️</span> <span data-i18n="sketch.clear">전체 지우기</span>
         </button>
         <button class="btn-sub" id="btn-wb-download">
-          <span>💾</span> 메모 저장
+          <span>💾</span> <span data-i18n="sketch.save">메모 저장</span>
         </button>
       </div>
     </section>
 
     <footer class="footer">
-      <p>© 행운의 로또 번호 추첨기 & 포춘 스케치북 | 건전한 복권 문화를 응원합니다.</p>
+      <p data-i18n="footer">© 행운의 로또 번호 추첨기 & 포춘 스케치북 | 건전한 복권 문화를 응원합니다.</p>
     </footer>
 
   </div>
 
   <!-- 복사 알림 토스트 -->
   <div class="toast" id="toast">
-    <span>✅</span> 클립보드에 복사되었습니다!
+    <span>✅</span> <span data-i18n="toast.copied">클립보드에 복사되었습니다!</span>
   </div>
 
   <script>
     /* ========================================================
-       0. 탭 전환
+       0. 다국어 (한국어 / English / 中文 / 日本語)
+       ======================================================== */
+    const I18N = {
+      ko: {
+        'doc.title': '행운의 로또 번호 추첨기 & 포춘 스케치북',
+        'lang.aria': '언어 선택',
+        'theme.aria': '테마 전환',
+        'theme.dark': '다크모드',
+        'theme.light': '라이트모드',
+        'toast.darkOn': '🌙 다크모드가 적용되었습니다.',
+        'toast.lightOn': '☀️ 라이트모드가 적용되었습니다.',
+        'toast.copied': '클립보드에 복사되었습니다!',
+        'nav.aria': '메뉴',
+        'tab.lotto': '로또',
+        'tab.fortune': '운세',
+        'tab.tarot': '타로',
+        'tab.sketch': '스케치북',
+
+        'lotto.title': '로또 번호 추천기',
+        'lotto.subtitle': '버튼 하나로 당신만의 행운 번호를 뽑아보세요!',
+        'lotto.lotteryAria': '복권 종류',
+        'lotto.game1': '1게임 (1줄)',
+        'lotto.game5': '5게임 (1세트 / A~E)',
+        'lotto.placeholder': "아래 '번호 추첨하기' 버튼을 눌러주세요!",
+        'lotto.generate': '행운의 번호 추첨하기',
+        'lotto.copy': '번호 복사',
+        'lotto.reset': '초기화',
+        'lotto.copyHeader': '🍀 [{name} 행운 번호 추천]',
+        'lotto.gameLine': '{label}게임: ',
+        'lotto.numbersLine': '추천번호: ',
+        'lotto.toastCopied': '✅ 번호가 클립보드에 복사되었습니다!',
+        'tag.fortune': '맞춤',
+        'tag.tarot': '타로',
+
+        'lot.kr.chip': '🇰🇷 로또 6/45', 'lot.kr.name': '로또 6/45', 'lot.kr.badge': '행운의 6/45',
+        'lot.kr.rule': '1~45 중 번호 6개', 'lot.kr.site': '동행복권 공식 홈페이지',
+        'lot.powerball.chip': '🇺🇸 파워볼', 'lot.powerball.name': '파워볼 (Powerball)', 'lot.powerball.badge': '미국 Powerball',
+        'lot.powerball.rule': '흰 공 5개 (1~69) + 빨간 파워볼 1개 (1~26)', 'lot.powerball.site': 'Powerball 공식 홈페이지', 'lot.powerball.bonus': '파워볼',
+        'lot.megamillions.chip': '🇺🇸 메가밀리언', 'lot.megamillions.name': '메가밀리언 (Mega Millions)', 'lot.megamillions.badge': '미국 Mega Millions',
+        'lot.megamillions.rule': '흰 공 5개 (1~70) + 금색 메가볼 1개 (1~24)', 'lot.megamillions.site': 'Mega Millions 공식 홈페이지', 'lot.megamillions.bonus': '메가볼',
+        'lot.euromillions.chip': '🇪🇺 유로밀리언', 'lot.euromillions.name': '유로밀리언 (EuroMillions)', 'lot.euromillions.badge': '유럽 EuroMillions',
+        'lot.euromillions.rule': '번호 5개 (1~50) + 럭키스타 2개 (1~12)', 'lot.euromillions.site': 'EuroMillions 공식 페이지 (영국)', 'lot.euromillions.bonus': '럭키스타',
+        'lot.eurojackpot.chip': '🇪🇺 유로잭팟', 'lot.eurojackpot.name': '유로잭팟 (Eurojackpot)', 'lot.eurojackpot.badge': '유럽 Eurojackpot',
+        'lot.eurojackpot.rule': '번호 5개 (1~50) + 유로 넘버 2개 (1~12)', 'lot.eurojackpot.site': 'Eurojackpot 공식 홈페이지', 'lot.eurojackpot.bonus': '유로 넘버',
+
+        'fortune.badge': '행운 점성술 & 사주',
+        'fortune.title': '나의 맞춤 운세 & 로또 번호',
+        'fortune.subtitle': '생년월일을 입력하면 오늘의 운세와 기운이 담긴 번호가 연계 생성됩니다',
+        'fortune.birthLabel': '나의 생년월일 선택 (달력)',
+        'fortune.button': '맞춤 운세 & 로또 번호 뽑기',
+        'fortune.placeholder': '생년월일을 선택하고 버튼을 누르면 오늘의 맞춤 운세와 연계 번호를 확인하실 수 있습니다!',
+        'fortune.toastInvalid': '⚠️ 생년월일을 올바르게 선택해주세요!',
+        'fortune.toastFormat': '⚠️ 생년월일 형식이 올바르지 않습니다.',
+        'fortune.tag': '{year}년생 {zodiac} · {cIcon} {cName} · {element}의 기운',
+        'fortune.score': '(행운 지수: {score}점)',
+        'fortune.headline': '"오늘 당신의 운명과 숫자가 맞닿는 날!"',
+        'fortune.chipRange': '🍀 집중 추천:',
+        'fortune.chipColor': '🎨 행운의 색:',
+        'fortune.chipTip': '💡 추천 팁:',
+        'fortune.tipStrong': '오늘 구매 강력 추천',
+        'fortune.tipCalm': '심호흡 후 직감 발휘',
+        'fortune.rangeName': '{min} ~ {max}번 ({color})',
+        'fortune.numbersTitle': '생년월일 맞춤 연계 추천 번호',
+        'fortune.copyText': '🍀 [{year}년생 {zodiac} 맞춤 로또 행운 번호]\n생년월일: {date} ({cName})\n추천번호: {nums}',
+        'fortune.toastCopied': '✅ 맞춤 로또 번호가 복사되었습니다!',
+        'fortune.toastApplied': '🍀 맞춤 번호가 메인 추첨기에 적용되었습니다!',
+        'fortune.toastDone': '🔮 {year}년생 {zodiac} 맞춤 운세와 번호가 완성되었습니다!',
+        'common.copyThis': '이 번호 복사',
+        'common.sendMain': '메인 추첨기에 전송',
+        'ballColor.yellow': '노랑', 'ballColor.blue': '파랑', 'ballColor.red': '빨강', 'ballColor.gray': '회색', 'ballColor.green': '초록',
+
+        'cal.aria': '생년월일 달력',
+        'cal.prev': '이전 달',
+        'cal.next': '다음 달',
+        'cal.yearAria': '연도 선택',
+        'cal.monthAria': '월 선택',
+        'cal.today': '오늘 날짜',
+        'cal.done': '선택 완료',
+
+        'tarot.badge': '오늘의 타로',
+        'tarot.title': '타로 카드 & 행운 번호',
+        'tarot.subtitle': '카드 3장을 뒤집으면 카드의 기운이 담긴 번호가 만들어집니다',
+        'tarot.slot0': '과거', 'tarot.slot1': '현재', 'tarot.slot2': '미래',
+        'tarot.flipAria': '{slot} 카드 뒤집기',
+        'tarot.cardAria': '{slot} 카드: {name} {dir}',
+        'tarot.hint': '카드를 한 장씩 눌러 뒤집어 보세요 ({n} / 3)',
+        'tarot.hintDone': '카드가 모두 펼쳐졌습니다 ✨',
+        'tarot.placeholder': '세 장을 모두 뒤집으면 타로 해석과 연계 로또 번호가 나타납니다!',
+        'tarot.shuffle': '카드 다시 섞기',
+        'tarot.upright': '정방향', 'tarot.reversed': '역방향',
+        'tarot.uprightShort': '정', 'tarot.reversedShort': '역',
+        'tarot.headline': '"{name} 카드가 비추는 당신의 행운"',
+        'tarot.numbersTitle': '타로 연계 추천 번호',
+        'tarot.copyHeader': '🃏 [타로 연계 로또 행운 번호]',
+        'tarot.toastCopied': '✅ 타로 로또 번호가 복사되었습니다!',
+        'tarot.toastApplied': '🃏 타로 번호가 메인 추첨기에 적용되었습니다!',
+        'tarot.toastDone': '🃏 타로 해석과 연계 번호가 완성되었습니다!',
+        'tarot.toastShuffled': '🔀 카드를 새로 섞었습니다!',
+
+        'sketch.badge': '번호 낙서장',
+        'sketch.title': '행운의 스케치북',
+        'sketch.subtitle': '꿈에 나온 숫자나 떠오르는 영감을 자유롭게 적어보세요',
+        'sketch.black': '검정 / 기본', 'sketch.red': '빨강', 'sketch.blue': '파랑', 'sketch.green': '초록', 'sketch.gold': '황금', 'sketch.purple': '보라',
+        'sketch.thin': '얇게', 'sketch.normal': '보통', 'sketch.thick': '굵게',
+        'sketch.eraser': '지우개', 'sketch.clear': '전체 지우기', 'sketch.save': '메모 저장',
+        'sketch.toastEraser': '🧹 지우개 모드가 활성화되었습니다.',
+        'sketch.toastPen': '✏️ 펜 모드로 돌아왔습니다.',
+        'sketch.toastCleared': '🗑️ 스케치북이 초기화되었습니다.',
+        'sketch.toastSaved': '💾 스케치북 메모가 이미지로 저장되었습니다!',
+
+        'footer': '© 행운의 로또 번호 추첨기 & 포춘 스케치북 | 건전한 복권 문화를 응원합니다.',
+
+        data: {
+          elements: { metal: '금(金)', earth: '토(土)', water: '수(水)', wood: '목(木)', fire: '화(火)' },
+          zodiac: [
+            { name: '원숭이띠', color: '백색/은회색', char: '지혜와 번뜩이는 기지' },
+            { name: '닭띠', color: '실버 골드', char: '치밀함과 결단력' },
+            { name: '개띠', color: '황금 브라운', char: '성실함과 우직한 행운' },
+            { name: '돼지띠', color: '딥 사파이어', char: '풍요와 복(福)을 부르는 기운' },
+            { name: '쥐띠', color: '코발트 블루', char: '민첩함과 타고난 재물 감각' },
+            { name: '소띠', color: '황금 옐로우', char: '인내와 묵직한 대박의 결실' },
+            { name: '호랑이띠', color: '포레스트 그린', char: '용맹과 당당한 승부수' },
+            { name: '토끼띠', color: '에메랄드 그린', char: '평온함과 세심한 직관' },
+            { name: '용띠', color: '임페리얼 골드', char: '웅대한 비상과 거대한 행운' },
+            { name: '뱀띠', color: '루비 레드', char: '심미안과 예리한 통찰' },
+            { name: '말띠', color: '스칼렛 레드', char: '역동적인 에너지와 질주' },
+            { name: '양띠', color: '따스한 앰버', char: '온화함과 조화로운 복운' }
+          ],
+          signs: ['염소자리', '물병자리', '물고기자리', '양자리', '황소자리', '쌍둥이자리', '게자리', '사자자리', '처녀자리', '천칭자리', '전갈자리', '사수자리', '염소자리'],
+          fortuneMessages: [
+            '오늘 {year}년생 {zodiac}인 당신에게는 {element}의 기운이 강력하게 작용하는 하루입니다. 특히 {rangeName} 대역에서 재물의 흐름이 강하게 포착됩니다. 당신의 생일에서 파생된 번호와 오늘 우주의 기운이 어우러져 기적의 잭팟을 부르고 있습니다!',
+            '{cIcon} {cName}의 별자리가 행운의 각도를 이루며 {char}이 빛을 발하는 날입니다. 오늘은 남의 말보다는 본인의 첫 번째 직관을 믿고 선택한 번호에서 큰 복운이 깃듭니다.',
+            '금전운이 절정에 달하는 특별한 길일입니다! {element}의 에너지와 어우러지는 {color} 계열의 기운을 담아 추천된 아래의 6개 번호 조합을 눈여겨보세요.',
+            '잔잔한 일상 속에서 뜻밖의 횡재수가 기다리고 있습니다. 생년월일의 조화로운 수비학적 기운이 1~45의 숫자들과 절묘하게 매칭되었습니다.'
+          ],
+          tarot: [
+            { name: '바보', up: '새로운 시작과 자유로운 도전', rev: '성급한 결정, 한 번 더 살피기' },
+            { name: '마법사', up: '원하는 것을 이뤄내는 실행력', rev: '재능은 있으나 방향 점검 필요' },
+            { name: '여사제', up: '직관과 내면의 지혜', rev: '숨겨진 정보, 서두르지 않기' },
+            { name: '여황제', up: '풍요와 결실, 재물의 흐름', rev: '과한 소비를 조심할 때' },
+            { name: '황제', up: '안정과 확고한 기반', rev: '고집을 내려놓으면 길이 열림' },
+            { name: '교황', up: '조언과 신뢰, 전통의 힘', rev: '나만의 방식이 필요한 시기' },
+            { name: '연인', up: '조화로운 선택과 좋은 인연', rev: '선택 앞의 망설임' },
+            { name: '전차', up: '거침없는 전진과 승리', rev: '속도 조절이 필요한 때' },
+            { name: '힘', up: '부드러운 용기와 인내', rev: '자신감을 되찾는 과정' },
+            { name: '은둔자', up: '깊은 성찰과 통찰', rev: '혼자보다 함께가 좋은 때' },
+            { name: '운명의 수레바퀴', up: '행운의 전환점, 기회의 도래', rev: '흐름이 바뀌기를 기다리기' },
+            { name: '정의', up: '공정한 결과와 균형', rev: '작은 실수 바로잡기' },
+            { name: '매달린 사람', up: '관점을 바꾸면 보이는 기회', rev: '정체에서 벗어날 준비' },
+            { name: '죽음', up: '끝과 새로운 탄생, 변화', rev: '변화를 두려워하지 않기' },
+            { name: '절제', up: '균형과 조화, 적당함의 미덕', rev: '리듬을 다시 맞추기' },
+            { name: '악마', up: '강한 욕망과 집착 경계', rev: '속박에서 벗어나는 해방' },
+            { name: '탑', up: '갑작스러운 반전과 각성', rev: '위기를 피해 가는 행운' },
+            { name: '별', up: '희망과 영감, 소원 성취', rev: '희망을 놓지 않기' },
+            { name: '달', up: '꿈과 무의식이 주는 신호', rev: '불안이 걷히고 선명해짐' },
+            { name: '태양', up: '성공과 기쁨, 최고의 길운', rev: '조금 늦게 오는 밝은 소식' },
+            { name: '심판', up: '부활과 보상, 좋은 소식', rev: '지난 일을 정리할 때' },
+            { name: '세계', up: '완성과 성취, 큰 결실', rev: '마지막 한 걸음 남음' }
+          ],
+          tarotSummaries: [
+            '지금은 숨을 고르며 흐름을 지켜볼 때입니다. 카드가 건넨 숫자를 가볍게 품어 두세요.',
+            '작은 변화들이 모여 행운의 방향으로 움직이고 있습니다. 직감을 믿어 보세요.',
+            '좋은 기운이 차오르고 있습니다! 카드의 번호에 오늘의 행운을 실어 보세요.',
+            '세 장 모두 정방향, 우주가 활짝 웃고 있는 날입니다! 최고의 기운이 담긴 번호입니다.'
+          ]
+        }
+      },
+
+      en: {
+        'doc.title': 'Lucky Lotto Picker & Fortune Sketchbook',
+        'lang.aria': 'Language',
+        'theme.aria': 'Toggle theme',
+        'theme.dark': 'Dark',
+        'theme.light': 'Light',
+        'toast.darkOn': '🌙 Dark mode is on.',
+        'toast.lightOn': '☀️ Light mode is on.',
+        'toast.copied': 'Copied to clipboard!',
+        'nav.aria': 'Menu',
+        'tab.lotto': 'Lotto',
+        'tab.fortune': 'Fortune',
+        'tab.tarot': 'Tarot',
+        'tab.sketch': 'Sketch',
+
+        'lotto.title': 'Lotto Number Picker',
+        'lotto.subtitle': 'Draw your own lucky numbers with a single tap!',
+        'lotto.lotteryAria': 'Lottery type',
+        'lotto.game1': '1 Game (1 line)',
+        'lotto.game5': '5 Games (A–E)',
+        'lotto.placeholder': "Tap 'Draw Lucky Numbers' below!",
+        'lotto.generate': 'Draw Lucky Numbers',
+        'lotto.copy': 'Copy',
+        'lotto.reset': 'Reset',
+        'lotto.copyHeader': '🍀 [{name} Lucky Numbers]',
+        'lotto.gameLine': 'Game {label}: ',
+        'lotto.numbersLine': 'Numbers: ',
+        'lotto.toastCopied': '✅ Numbers copied to clipboard!',
+        'tag.fortune': 'Mine',
+        'tag.tarot': 'Tarot',
+
+        'lot.kr.chip': '🇰🇷 Lotto 6/45', 'lot.kr.name': 'Korea Lotto 6/45', 'lot.kr.badge': 'Lucky 6/45',
+        'lot.kr.rule': '6 numbers from 1–45', 'lot.kr.site': 'Dhlottery official website',
+        'lot.powerball.chip': '🇺🇸 Powerball', 'lot.powerball.name': 'Powerball', 'lot.powerball.badge': 'US Powerball',
+        'lot.powerball.rule': '5 white balls (1–69) + 1 red Powerball (1–26)', 'lot.powerball.site': 'Powerball official website', 'lot.powerball.bonus': 'Powerball',
+        'lot.megamillions.chip': '🇺🇸 Mega Millions', 'lot.megamillions.name': 'Mega Millions', 'lot.megamillions.badge': 'US Mega Millions',
+        'lot.megamillions.rule': '5 white balls (1–70) + 1 gold Mega Ball (1–24)', 'lot.megamillions.site': 'Mega Millions official website', 'lot.megamillions.bonus': 'Mega Ball',
+        'lot.euromillions.chip': '🇪🇺 EuroMillions', 'lot.euromillions.name': 'EuroMillions', 'lot.euromillions.badge': 'Europe EuroMillions',
+        'lot.euromillions.rule': '5 numbers (1–50) + 2 Lucky Stars (1–12)', 'lot.euromillions.site': 'EuroMillions official page (UK)', 'lot.euromillions.bonus': 'Lucky Stars',
+        'lot.eurojackpot.chip': '🇪🇺 Eurojackpot', 'lot.eurojackpot.name': 'Eurojackpot', 'lot.eurojackpot.badge': 'Europe Eurojackpot',
+        'lot.eurojackpot.rule': '5 numbers (1–50) + 2 Euro Numbers (1–12)', 'lot.eurojackpot.site': 'Eurojackpot official website', 'lot.eurojackpot.bonus': 'Euro Numbers',
+
+        'fortune.badge': 'Lucky Astrology & Zodiac',
+        'fortune.title': 'My Fortune & Lotto Numbers',
+        'fortune.subtitle': "Enter your birthday to get today's fortune and numbers infused with its energy",
+        'fortune.birthLabel': 'Choose your birthday',
+        'fortune.button': 'Get My Fortune & Numbers',
+        'fortune.placeholder': "Pick your birthday and tap the button to see today's fortune and your linked numbers!",
+        'fortune.toastInvalid': '⚠️ Please choose a valid birthday!',
+        'fortune.toastFormat': '⚠️ The birthday format is not valid.',
+        'fortune.tag': 'Born {year} · Year of the {zodiac} · {cIcon} {cName} · {element} energy',
+        'fortune.score': '(Luck score: {score})',
+        'fortune.headline': '"Today your destiny meets your numbers!"',
+        'fortune.chipRange': '🍀 Focus on:',
+        'fortune.chipColor': '🎨 Lucky color:',
+        'fortune.chipTip': '💡 Tip:',
+        'fortune.tipStrong': 'A great day to play',
+        'fortune.tipCalm': 'Breathe and trust your gut',
+        'fortune.rangeName': '{min}–{max} ({color})',
+        'fortune.numbersTitle': 'Numbers linked to your birthday',
+        'fortune.copyText': '🍀 [Lucky Lotto Numbers · Born {year} · Year of the {zodiac}]\nBirthday: {date} ({cName})\nNumbers: {nums}',
+        'fortune.toastCopied': '✅ Your lucky numbers were copied!',
+        'fortune.toastApplied': '🍀 Your numbers were sent to the main picker!',
+        'fortune.toastDone': '🔮 Your fortune and numbers for the Year of the {zodiac} are ready!',
+        'common.copyThis': 'Copy these',
+        'common.sendMain': 'Send to main picker',
+        'ballColor.yellow': 'yellow', 'ballColor.blue': 'blue', 'ballColor.red': 'red', 'ballColor.gray': 'gray', 'ballColor.green': 'green',
+
+        'cal.aria': 'Birthday calendar',
+        'cal.prev': 'Previous month',
+        'cal.next': 'Next month',
+        'cal.yearAria': 'Select year',
+        'cal.monthAria': 'Select month',
+        'cal.today': 'Today',
+        'cal.done': 'Done',
+
+        'tarot.badge': "Today's Tarot",
+        'tarot.title': 'Tarot Cards & Lucky Numbers',
+        'tarot.subtitle': 'Flip three cards to create numbers carrying their energy',
+        'tarot.slot0': 'Past', 'tarot.slot1': 'Present', 'tarot.slot2': 'Future',
+        'tarot.flipAria': 'Flip the {slot} card',
+        'tarot.cardAria': '{slot} card: {name}, {dir}',
+        'tarot.hint': 'Tap each card to flip it ({n} / 3)',
+        'tarot.hintDone': 'All cards are revealed ✨',
+        'tarot.placeholder': 'Flip all three cards to see your reading and linked lotto numbers!',
+        'tarot.shuffle': 'Shuffle again',
+        'tarot.upright': 'Upright', 'tarot.reversed': 'Reversed',
+        'tarot.uprightShort': 'Upright', 'tarot.reversedShort': 'Reversed',
+        'tarot.headline': '"Your luck, lit by {name}"',
+        'tarot.numbersTitle': 'Numbers linked to your tarot',
+        'tarot.copyHeader': '🃏 [Tarot Lucky Lotto Numbers]',
+        'tarot.toastCopied': '✅ Your tarot numbers were copied!',
+        'tarot.toastApplied': '🃏 Your tarot numbers were sent to the main picker!',
+        'tarot.toastDone': '🃏 Your tarot reading and numbers are ready!',
+        'tarot.toastShuffled': '🔀 The cards were reshuffled!',
+
+        'sketch.badge': 'Number Doodle Pad',
+        'sketch.title': 'Lucky Sketchbook',
+        'sketch.subtitle': 'Jot down numbers from your dreams or any inspiration',
+        'sketch.black': 'Black / Default', 'sketch.red': 'Red', 'sketch.blue': 'Blue', 'sketch.green': 'Green', 'sketch.gold': 'Gold', 'sketch.purple': 'Purple',
+        'sketch.thin': 'Thin', 'sketch.normal': 'Medium', 'sketch.thick': 'Thick',
+        'sketch.eraser': 'Eraser', 'sketch.clear': 'Clear all', 'sketch.save': 'Save',
+        'sketch.toastEraser': '🧹 Eraser mode is on.',
+        'sketch.toastPen': '✏️ Back to pen mode.',
+        'sketch.toastCleared': '🗑️ The sketchbook was cleared.',
+        'sketch.toastSaved': '💾 Your sketch was saved as an image!',
+
+        'footer': '© Lucky Lotto Picker & Fortune Sketchbook | Please play responsibly.',
+
+        data: {
+          elements: { metal: 'Metal', earth: 'Earth', water: 'Water', wood: 'Wood', fire: 'Fire' },
+          zodiac: [
+            { name: 'Monkey', color: 'white / silver gray', char: 'wisdom and quick wit' },
+            { name: 'Rooster', color: 'silver gold', char: 'precision and decisiveness' },
+            { name: 'Dog', color: 'golden brown', char: 'steady, loyal luck' },
+            { name: 'Pig', color: 'deep sapphire', char: 'abundance and blessings' },
+            { name: 'Rat', color: 'cobalt blue', char: 'agility and a natural sense for wealth' },
+            { name: 'Ox', color: 'golden yellow', char: 'patience and a weighty jackpot' },
+            { name: 'Tiger', color: 'forest green', char: 'courage and bold moves' },
+            { name: 'Rabbit', color: 'emerald green', char: 'calm and keen intuition' },
+            { name: 'Dragon', color: 'imperial gold', char: 'a soaring rise and great fortune' },
+            { name: 'Snake', color: 'ruby red', char: 'a fine eye and sharp insight' },
+            { name: 'Horse', color: 'scarlet red', char: 'dynamic energy and drive' },
+            { name: 'Goat', color: 'warm amber', char: 'gentleness and harmonious luck' }
+          ],
+          signs: ['Capricorn', 'Aquarius', 'Pisces', 'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn'],
+          fortuneMessages: [
+            'Today, the {element} energy works strongly for you, born in {year}, the Year of the {zodiac}. A strong flow of wealth shows up in the {rangeName} range. Numbers drawn from your birthday blend with today’s cosmic energy to call in a miracle jackpot!',
+            '{cIcon} {cName} sits at a lucky angle and your {char} shines today. Trust your first instinct over others’ advice — the numbers you choose carry great fortune.',
+            'A special day when your money luck peaks! Keep an eye on the six numbers below, chosen with {color} energy in harmony with {element}.',
+            'An unexpected windfall awaits in your calm daily life. The harmonious numerology of your birthday matches beautifully with the numbers 1–45.'
+          ],
+          tarot: [
+            { name: 'The Fool', up: 'A fresh start and a free-spirited leap', rev: 'Hasty decisions — look once more' },
+            { name: 'The Magician', up: 'The power to make things happen', rev: 'Talent is there; check your direction' },
+            { name: 'The High Priestess', up: 'Intuition and inner wisdom', rev: 'Hidden information — don’t rush' },
+            { name: 'The Empress', up: 'Abundance, harvest and flowing wealth', rev: 'Watch out for overspending' },
+            { name: 'The Emperor', up: 'Stability and a solid foundation', rev: 'Let go of stubbornness and a path opens' },
+            { name: 'The Hierophant', up: 'Guidance, trust and tradition', rev: 'Time to find your own way' },
+            { name: 'The Lovers', up: 'Harmonious choices and good connections', rev: 'Hesitation before a choice' },
+            { name: 'The Chariot', up: 'Unstoppable progress and victory', rev: 'Time to adjust your pace' },
+            { name: 'Strength', up: 'Gentle courage and patience', rev: 'Regaining your confidence' },
+            { name: 'The Hermit', up: 'Deep reflection and insight', rev: 'Better together than alone' },
+            { name: 'Wheel of Fortune', up: 'A lucky turning point; chance arrives', rev: 'Wait for the tide to turn' },
+            { name: 'Justice', up: 'Fair outcomes and balance', rev: 'Fix the small mistakes' },
+            { name: 'The Hanged Man', up: 'A new view reveals opportunity', rev: 'Getting ready to break free' },
+            { name: 'Death', up: 'An ending, a rebirth, a change', rev: 'Don’t fear change' },
+            { name: 'Temperance', up: 'Balance, harmony and moderation', rev: 'Find your rhythm again' },
+            { name: 'The Devil', up: 'Strong desire — beware of obsession', rev: 'Release from what binds you' },
+            { name: 'The Tower', up: 'A sudden twist and awakening', rev: 'Luck that steers you past a crisis' },
+            { name: 'The Star', up: 'Hope, inspiration and wishes granted', rev: 'Don’t let go of hope' },
+            { name: 'The Moon', up: 'Signals from dreams and the subconscious', rev: 'Worries lift and things become clear' },
+            { name: 'The Sun', up: 'Success, joy and the best of luck', rev: 'Bright news, arriving a little late' },
+            { name: 'Judgement', up: 'Revival, reward and good news', rev: 'Time to settle the past' },
+            { name: 'The World', up: 'Completion, achievement, a big harvest', rev: 'Just one last step to go' }
+          ],
+          tarotSummaries: [
+            'Take a breath and watch the flow for now. Hold the numbers the cards gave you lightly.',
+            'Small changes are adding up and moving toward luck. Trust your intuition.',
+            'Good energy is rising! Put today’s luck into the cards’ numbers.',
+            'All three cards upright — the universe is smiling on you today! These numbers carry the best energy.'
+          ]
+        }
+      },
+
+      zh: {
+        'doc.title': '幸运乐透选号器 & 幸运画板',
+        'lang.aria': '选择语言',
+        'theme.aria': '切换主题',
+        'theme.dark': '深色',
+        'theme.light': '浅色',
+        'toast.darkOn': '🌙 已切换到深色模式。',
+        'toast.lightOn': '☀️ 已切换到浅色模式。',
+        'toast.copied': '已复制到剪贴板！',
+        'nav.aria': '菜单',
+        'tab.lotto': '乐透',
+        'tab.fortune': '运势',
+        'tab.tarot': '塔罗',
+        'tab.sketch': '画板',
+
+        'lotto.title': '乐透选号器',
+        'lotto.subtitle': '一键抽出属于你的幸运号码！',
+        'lotto.lotteryAria': '彩票种类',
+        'lotto.game1': '1注',
+        'lotto.game5': '5注 (A~E)',
+        'lotto.placeholder': '请点击下方的「抽取幸运号码」按钮！',
+        'lotto.generate': '抽取幸运号码',
+        'lotto.copy': '复制号码',
+        'lotto.reset': '重置',
+        'lotto.copyHeader': '🍀 [{name} 幸运号码推荐]',
+        'lotto.gameLine': '{label}注: ',
+        'lotto.numbersLine': '推荐号码: ',
+        'lotto.toastCopied': '✅ 号码已复制到剪贴板！',
+        'tag.fortune': '专属',
+        'tag.tarot': '塔罗',
+
+        'lot.kr.chip': '🇰🇷 韩国乐透 6/45', 'lot.kr.name': '韩国乐透 6/45', 'lot.kr.badge': '幸运 6/45',
+        'lot.kr.rule': '从 1~45 中选 6 个号码', 'lot.kr.site': '东幸彩票官方网站',
+        'lot.powerball.chip': '🇺🇸 强力球', 'lot.powerball.name': '强力球 (Powerball)', 'lot.powerball.badge': '美国 Powerball',
+        'lot.powerball.rule': '白球 5 个 (1~69) + 红色强力球 1 个 (1~26)', 'lot.powerball.site': 'Powerball 官方网站', 'lot.powerball.bonus': '强力球',
+        'lot.megamillions.chip': '🇺🇸 超级百万', 'lot.megamillions.name': '超级百万 (Mega Millions)', 'lot.megamillions.badge': '美国 Mega Millions',
+        'lot.megamillions.rule': '白球 5 个 (1~70) + 金色超级球 1 个 (1~24)', 'lot.megamillions.site': 'Mega Millions 官方网站', 'lot.megamillions.bonus': '超级球',
+        'lot.euromillions.chip': '🇪🇺 欧洲百万', 'lot.euromillions.name': '欧洲百万 (EuroMillions)', 'lot.euromillions.badge': '欧洲 EuroMillions',
+        'lot.euromillions.rule': '号码 5 个 (1~50) + 幸运星 2 个 (1~12)', 'lot.euromillions.site': 'EuroMillions 官方页面 (英国)', 'lot.euromillions.bonus': '幸运星',
+        'lot.eurojackpot.chip': '🇪🇺 欧洲大奖', 'lot.eurojackpot.name': '欧洲大奖 (Eurojackpot)', 'lot.eurojackpot.badge': '欧洲 Eurojackpot',
+        'lot.eurojackpot.rule': '号码 5 个 (1~50) + 欧元号码 2 个 (1~12)', 'lot.eurojackpot.site': 'Eurojackpot 官方网站', 'lot.eurojackpot.bonus': '欧元号码',
+
+        'fortune.badge': '幸运占星 & 生肖',
+        'fortune.title': '我的专属运势 & 乐透号码',
+        'fortune.subtitle': '输入生日，即可生成今日运势和蕴含其能量的号码',
+        'fortune.birthLabel': '选择我的生日',
+        'fortune.button': '抽取专属运势 & 号码',
+        'fortune.placeholder': '选择生日并点击按钮，即可查看今日专属运势和关联号码！',
+        'fortune.toastInvalid': '⚠️ 请正确选择生日！',
+        'fortune.toastFormat': '⚠️ 生日格式不正确。',
+        'fortune.tag': '{year}年生 · 属{zodiac} · {cIcon} {cName} · {element}之气',
+        'fortune.score': '(幸运指数: {score}分)',
+        'fortune.headline': '"今天是你的命运与数字相遇的日子！"',
+        'fortune.chipRange': '🍀 重点推荐:',
+        'fortune.chipColor': '🎨 幸运色:',
+        'fortune.chipTip': '💡 小贴士:',
+        'fortune.tipStrong': '今天非常适合购买',
+        'fortune.tipCalm': '深呼吸，相信直觉',
+        'fortune.rangeName': '{min}~{max}号 ({color})',
+        'fortune.numbersTitle': '生日专属关联号码',
+        'fortune.copyText': '🍀 [{year}年生 属{zodiac} 专属乐透幸运号码]\n生日: {date} ({cName})\n推荐号码: {nums}',
+        'fortune.toastCopied': '✅ 专属号码已复制！',
+        'fortune.toastApplied': '🍀 专属号码已发送到主选号器！',
+        'fortune.toastDone': '🔮 属{zodiac}的专属运势和号码已生成！',
+        'common.copyThis': '复制这组号码',
+        'common.sendMain': '发送到主选号器',
+        'ballColor.yellow': '黄色', 'ballColor.blue': '蓝色', 'ballColor.red': '红色', 'ballColor.gray': '灰色', 'ballColor.green': '绿色',
+
+        'cal.aria': '生日日历',
+        'cal.prev': '上个月',
+        'cal.next': '下个月',
+        'cal.yearAria': '选择年份',
+        'cal.monthAria': '选择月份',
+        'cal.today': '今天',
+        'cal.done': '完成',
+
+        'tarot.badge': '今日塔罗',
+        'tarot.title': '塔罗牌 & 幸运号码',
+        'tarot.subtitle': '翻开三张牌，生成蕴含牌面能量的号码',
+        'tarot.slot0': '过去', 'tarot.slot1': '现在', 'tarot.slot2': '未来',
+        'tarot.flipAria': '翻开{slot}之牌',
+        'tarot.cardAria': '{slot}之牌: {name} {dir}',
+        'tarot.hint': '请逐张点击翻牌 ({n} / 3)',
+        'tarot.hintDone': '所有牌都已翻开 ✨',
+        'tarot.placeholder': '翻开全部三张牌后，将显示塔罗解读和关联乐透号码！',
+        'tarot.shuffle': '重新洗牌',
+        'tarot.upright': '正位', 'tarot.reversed': '逆位',
+        'tarot.uprightShort': '正', 'tarot.reversedShort': '逆',
+        'tarot.headline': '"{name}照亮你的幸运"',
+        'tarot.numbersTitle': '塔罗关联推荐号码',
+        'tarot.copyHeader': '🃏 [塔罗关联乐透幸运号码]',
+        'tarot.toastCopied': '✅ 塔罗号码已复制！',
+        'tarot.toastApplied': '🃏 塔罗号码已发送到主选号器！',
+        'tarot.toastDone': '🃏 塔罗解读和关联号码已生成！',
+        'tarot.toastShuffled': '🔀 已重新洗牌！',
+
+        'sketch.badge': '号码涂鸦板',
+        'sketch.title': '幸运画板',
+        'sketch.subtitle': '随手记下梦中出现的数字或灵感',
+        'sketch.black': '黑色 / 默认', 'sketch.red': '红色', 'sketch.blue': '蓝色', 'sketch.green': '绿色', 'sketch.gold': '金色', 'sketch.purple': '紫色',
+        'sketch.thin': '细', 'sketch.normal': '中', 'sketch.thick': '粗',
+        'sketch.eraser': '橡皮擦', 'sketch.clear': '全部清除', 'sketch.save': '保存',
+        'sketch.toastEraser': '🧹 已开启橡皮擦模式。',
+        'sketch.toastPen': '✏️ 已切换回画笔模式。',
+        'sketch.toastCleared': '🗑️ 画板已清空。',
+        'sketch.toastSaved': '💾 画板已保存为图片！',
+
+        'footer': '© 幸运乐透选号器 & 幸运画板 | 理性购彩，量力而行。',
+
+        data: {
+          elements: { metal: '金', earth: '土', water: '水', wood: '木', fire: '火' },
+          zodiac: [
+            { name: '猴', color: '白色/银灰色', char: '智慧与机敏' },
+            { name: '鸡', color: '银金色', char: '缜密与果断' },
+            { name: '狗', color: '金棕色', char: '踏实忠厚的好运' },
+            { name: '猪', color: '深蓝宝石色', char: '招来富足与福气的能量' },
+            { name: '鼠', color: '钴蓝色', char: '敏捷与天生的财运嗅觉' },
+            { name: '牛', color: '金黄色', char: '坚忍与厚重的大奖' },
+            { name: '虎', color: '森林绿', char: '勇猛与果敢出击' },
+            { name: '兔', color: '翡翠绿', char: '平和与细腻的直觉' },
+            { name: '龙', color: '帝王金', char: '腾飞之势与巨大好运' },
+            { name: '蛇', color: '宝石红', char: '审美眼光与敏锐洞察' },
+            { name: '马', color: '猩红色', char: '充沛活力与奔腾之势' },
+            { name: '羊', color: '温暖琥珀色', char: '温和与和谐的福运' }
+          ],
+          signs: ['摩羯座', '水瓶座', '双鱼座', '白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座'],
+          fortuneMessages: [
+            '今天，{element}之气对{year}年出生、属{zodiac}的你发挥着强大作用。尤其在{rangeName}区间，财运流动十分明显。由生日衍生的号码与今日宇宙之气相融合，正在召唤奇迹般的大奖！',
+            '{cIcon} {cName}正处于幸运角度，你的{char}在今天熠熠生辉。比起他人的意见，更要相信自己的第一直觉，所选号码将带来大福运。',
+            '财运达到顶峰的特别吉日！请留意下方融合{element}能量与{color}之气推荐的 6 个号码组合。',
+            '平静的日常中藏着意外之财。生日中和谐的数字命理与 1~45 的号码完美契合。'
+          ],
+          tarot: [
+            { name: '愚者', up: '崭新的开始与自由的挑战', rev: '决定过于仓促，请再确认一次' },
+            { name: '魔术师', up: '实现目标的行动力', rev: '才华具备，但需检查方向' },
+            { name: '女祭司', up: '直觉与内在智慧', rev: '隐藏的信息，不要着急' },
+            { name: '女皇', up: '丰饶与收获，财富流动', rev: '注意过度消费' },
+            { name: '皇帝', up: '稳定与坚实的基础', rev: '放下固执，道路自开' },
+            { name: '教皇', up: '建议与信任，传统的力量', rev: '是时候走自己的路' },
+            { name: '恋人', up: '和谐的选择与良缘', rev: '面对选择的犹豫' },
+            { name: '战车', up: '一往无前的胜利', rev: '需要调整步伐' },
+            { name: '力量', up: '温柔的勇气与耐心', rev: '重拾自信的过程' },
+            { name: '隐士', up: '深刻的反思与洞察', rev: '比起独处，更适合同行' },
+            { name: '命运之轮', up: '幸运的转折点，机会降临', rev: '等待时运转变' },
+            { name: '正义', up: '公正的结果与平衡', rev: '纠正小错误' },
+            { name: '倒吊人', up: '换个角度看到机会', rev: '准备摆脱停滞' },
+            { name: '死神', up: '结束与新生，变化', rev: '不要害怕改变' },
+            { name: '节制', up: '平衡与和谐，适度之美', rev: '重新调整节奏' },
+            { name: '恶魔', up: '强烈的欲望，警惕执念', rev: '挣脱束缚的解放' },
+            { name: '高塔', up: '突如其来的转折与觉醒', rev: '避开危机的幸运' },
+            { name: '星星', up: '希望与灵感，愿望成真', rev: '不要放弃希望' },
+            { name: '月亮', up: '梦境与潜意识的信号', rev: '不安消散，逐渐清晰' },
+            { name: '太阳', up: '成功与喜悦，最佳吉运', rev: '稍晚到来的好消息' },
+            { name: '审判', up: '复苏与回报，好消息', rev: '是时候整理过去' },
+            { name: '世界', up: '圆满与成就，丰硕成果', rev: '只差最后一步' }
+          ],
+          tarotSummaries: [
+            '现在是调整呼吸、静观其变的时候。轻轻收好牌面给你的数字吧。',
+            '小小的变化正汇聚成好运的方向。相信你的直觉。',
+            '好运正在涌现！把今天的幸运寄托在牌面的号码上吧。',
+            '三张全是正位，今天宇宙在对你微笑！这是蕴含最佳能量的号码。'
+          ]
+        }
+      },
+
+      ja: {
+        'doc.title': 'ラッキーロト番号ジェネレーター & 占いスケッチブック',
+        'lang.aria': '言語を選択',
+        'theme.aria': 'テーマ切り替え',
+        'theme.dark': 'ダーク',
+        'theme.light': 'ライト',
+        'toast.darkOn': '🌙 ダークモードに切り替えました。',
+        'toast.lightOn': '☀️ ライトモードに切り替えました。',
+        'toast.copied': 'クリップボードにコピーしました！',
+        'nav.aria': 'メニュー',
+        'tab.lotto': 'ロト',
+        'tab.fortune': '運勢',
+        'tab.tarot': 'タロット',
+        'tab.sketch': 'スケッチ',
+
+        'lotto.title': 'ロト番号ジェネレーター',
+        'lotto.subtitle': 'ボタンひとつであなただけのラッキーナンバーを！',
+        'lotto.lotteryAria': '宝くじの種類',
+        'lotto.game1': '1ゲーム',
+        'lotto.game5': '5ゲーム (A~E)',
+        'lotto.placeholder': '下の「ラッキーナンバーを引く」ボタンを押してください！',
+        'lotto.generate': 'ラッキーナンバーを引く',
+        'lotto.copy': 'コピー',
+        'lotto.reset': 'リセット',
+        'lotto.copyHeader': '🍀 [{name} ラッキーナンバー]',
+        'lotto.gameLine': '{label}ゲーム: ',
+        'lotto.numbersLine': 'おすすめ番号: ',
+        'lotto.toastCopied': '✅ 番号をクリップボードにコピーしました！',
+        'tag.fortune': '専用',
+        'tag.tarot': 'タロット',
+
+        'lot.kr.chip': '🇰🇷 韓国ロト 6/45', 'lot.kr.name': '韓国ロト 6/45', 'lot.kr.badge': 'ラッキー 6/45',
+        'lot.kr.rule': '1~45 から番号を 6 つ', 'lot.kr.site': '東行宝くじ 公式サイト',
+        'lot.powerball.chip': '🇺🇸 パワーボール', 'lot.powerball.name': 'パワーボール (Powerball)', 'lot.powerball.badge': 'アメリカ Powerball',
+        'lot.powerball.rule': '白ボール 5 個 (1~69) + 赤いパワーボール 1 個 (1~26)', 'lot.powerball.site': 'Powerball 公式サイト', 'lot.powerball.bonus': 'パワーボール',
+        'lot.megamillions.chip': '🇺🇸 メガミリオンズ', 'lot.megamillions.name': 'メガミリオンズ (Mega Millions)', 'lot.megamillions.badge': 'アメリカ Mega Millions',
+        'lot.megamillions.rule': '白ボール 5 個 (1~70) + 金色メガボール 1 個 (1~24)', 'lot.megamillions.site': 'Mega Millions 公式サイト', 'lot.megamillions.bonus': 'メガボール',
+        'lot.euromillions.chip': '🇪🇺 ユーロミリオンズ', 'lot.euromillions.name': 'ユーロミリオンズ (EuroMillions)', 'lot.euromillions.badge': 'ヨーロッパ EuroMillions',
+        'lot.euromillions.rule': '番号 5 つ (1~50) + ラッキースター 2 つ (1~12)', 'lot.euromillions.site': 'EuroMillions 公式ページ (イギリス)', 'lot.euromillions.bonus': 'ラッキースター',
+        'lot.eurojackpot.chip': '🇪🇺 ユーロジャックポット', 'lot.eurojackpot.name': 'ユーロジャックポット (Eurojackpot)', 'lot.eurojackpot.badge': 'ヨーロッパ Eurojackpot',
+        'lot.eurojackpot.rule': '番号 5 つ (1~50) + ユーロナンバー 2 つ (1~12)', 'lot.eurojackpot.site': 'Eurojackpot 公式サイト', 'lot.eurojackpot.bonus': 'ユーロナンバー',
+
+        'fortune.badge': 'ラッキー占星術 & 干支',
+        'fortune.title': 'あなただけの運勢 & ロト番号',
+        'fortune.subtitle': '生年月日を入力すると、今日の運勢とそのパワーを込めた番号が生まれます',
+        'fortune.birthLabel': '生年月日を選択',
+        'fortune.button': '運勢 & ロト番号を引く',
+        'fortune.placeholder': '生年月日を選んでボタンを押すと、今日の運勢と連動番号が表示されます！',
+        'fortune.toastInvalid': '⚠️ 生年月日を正しく選択してください！',
+        'fortune.toastFormat': '⚠️ 生年月日の形式が正しくありません。',
+        'fortune.tag': '{year}年生まれ · {zodiac} · {cIcon} {cName} · {element}の気',
+        'fortune.score': '(ラッキー指数: {score}点)',
+        'fortune.headline': '"今日はあなたの運命と数字が出会う日！"',
+        'fortune.chipRange': '🍀 注目:',
+        'fortune.chipColor': '🎨 ラッキーカラー:',
+        'fortune.chipTip': '💡 ヒント:',
+        'fortune.tipStrong': '今日の購入が特におすすめ',
+        'fortune.tipCalm': '深呼吸して直感を信じて',
+        'fortune.rangeName': '{min}~{max}番 ({color})',
+        'fortune.numbersTitle': '生年月日の連動おすすめ番号',
+        'fortune.copyText': '🍀 [{year}年生まれ {zodiac} 専用ロト ラッキーナンバー]\n生年月日: {date} ({cName})\nおすすめ番号: {nums}',
+        'fortune.toastCopied': '✅ 専用ロト番号をコピーしました！',
+        'fortune.toastApplied': '🍀 専用番号をメインジェネレーターに送りました！',
+        'fortune.toastDone': '🔮 {zodiac}のあなたの運勢と番号ができました！',
+        'common.copyThis': 'この番号をコピー',
+        'common.sendMain': 'メインに送る',
+        'ballColor.yellow': '黄', 'ballColor.blue': '青', 'ballColor.red': '赤', 'ballColor.gray': 'グレー', 'ballColor.green': '緑',
+
+        'cal.aria': '生年月日カレンダー',
+        'cal.prev': '前の月',
+        'cal.next': '次の月',
+        'cal.yearAria': '年を選択',
+        'cal.monthAria': '月を選択',
+        'cal.today': '今日',
+        'cal.done': '決定',
+
+        'tarot.badge': '今日のタロット',
+        'tarot.title': 'タロットカード & ラッキーナンバー',
+        'tarot.subtitle': '3 枚のカードをめくると、カードのパワーを込めた番号が生まれます',
+        'tarot.slot0': '過去', 'tarot.slot1': '現在', 'tarot.slot2': '未来',
+        'tarot.flipAria': '{slot}のカードをめくる',
+        'tarot.cardAria': '{slot}のカード: {name} {dir}',
+        'tarot.hint': 'カードを 1 枚ずつタップしてめくってください ({n} / 3)',
+        'tarot.hintDone': 'すべてのカードが開きました ✨',
+        'tarot.placeholder': '3 枚すべてめくると、タロットの解釈と連動ロト番号が表示されます！',
+        'tarot.shuffle': 'もう一度シャッフル',
+        'tarot.upright': '正位置', 'tarot.reversed': '逆位置',
+        'tarot.uprightShort': '正', 'tarot.reversedShort': '逆',
+        'tarot.headline': '"{name}が照らすあなたの幸運"',
+        'tarot.numbersTitle': 'タロット連動おすすめ番号',
+        'tarot.copyHeader': '🃏 [タロット連動ロト ラッキーナンバー]',
+        'tarot.toastCopied': '✅ タロットの番号をコピーしました！',
+        'tarot.toastApplied': '🃏 タロットの番号をメインジェネレーターに送りました！',
+        'tarot.toastDone': '🃏 タロットの解釈と連動番号ができました！',
+        'tarot.toastShuffled': '🔀 カードをシャッフルしました！',
+
+        'sketch.badge': 'ナンバー落書き帳',
+        'sketch.title': 'ラッキースケッチブック',
+        'sketch.subtitle': '夢に出てきた数字やひらめきを自由に書き留めましょう',
+        'sketch.black': '黒 / 基本', 'sketch.red': '赤', 'sketch.blue': '青', 'sketch.green': '緑', 'sketch.gold': 'ゴールド', 'sketch.purple': '紫',
+        'sketch.thin': '細く', 'sketch.normal': '普通', 'sketch.thick': '太く',
+        'sketch.eraser': '消しゴム', 'sketch.clear': '全部消す', 'sketch.save': 'メモを保存',
+        'sketch.toastEraser': '🧹 消しゴムモードになりました。',
+        'sketch.toastPen': '✏️ ペンモードに戻りました。',
+        'sketch.toastCleared': '🗑️ スケッチブックをリセットしました。',
+        'sketch.toastSaved': '💾 スケッチを画像として保存しました！',
+
+        'footer': '© ラッキーロト番号ジェネレーター & 占いスケッチブック | 宝くじは節度を持って楽しみましょう。',
+
+        data: {
+          elements: { metal: '金', earth: '土', water: '水', wood: '木', fire: '火' },
+          zodiac: [
+            { name: 'さる年', color: '白/シルバーグレー', char: '知恵とひらめく機転' },
+            { name: 'とり年', color: 'シルバーゴールド', char: '緻密さと決断力' },
+            { name: 'いぬ年', color: 'ゴールデンブラウン', char: '誠実で揺るがない幸運' },
+            { name: 'いのしし年', color: 'ディープサファイア', char: '豊かさと福を呼ぶ気' },
+            { name: 'ねずみ年', color: 'コバルトブルー', char: '素早さと天性の金運' },
+            { name: 'うし年', color: 'ゴールデンイエロー', char: '忍耐とずっしりとした大当たり' },
+            { name: 'とら年', color: 'フォレストグリーン', char: '勇猛さと堂々とした勝負' },
+            { name: 'うさぎ年', color: 'エメラルドグリーン', char: '穏やかさと繊細な直感' },
+            { name: 'たつ年', color: 'インペリアルゴールド', char: '壮大な飛躍と大きな幸運' },
+            { name: 'へび年', color: 'ルビーレッド', char: '審美眼と鋭い洞察' },
+            { name: 'うま年', color: 'スカーレットレッド', char: '躍動するエネルギーと疾走' },
+            { name: 'ひつじ年', color: 'あたたかいアンバー', char: '温和さと調和の福運' }
+          ],
+          signs: ['やぎ座', 'みずがめ座', 'うお座', 'おひつじ座', 'おうし座', 'ふたご座', 'かに座', 'しし座', 'おとめ座', 'てんびん座', 'さそり座', 'いて座', 'やぎ座'],
+          fortuneMessages: [
+            '今日は{year}年生まれ・{zodiac}のあなたに{element}の気が強く働く一日です。特に{rangeName}の範囲で金運の流れが強く表れています。誕生日から導かれた番号と今日の宇宙の気が重なり、奇跡のジャックポットを呼んでいます！',
+            '{cIcon} {cName}が幸運の角度をなし、あなたの{char}が輝く日です。今日は人の意見より自分の最初の直感を信じて選んだ番号に大きな福運が宿ります。',
+            '金運が最高潮に達する特別な吉日！{element}のエネルギーと調和する{color}の気を込めた、下の 6 つの番号に注目してください。',
+            '穏やかな日常の中に思わぬ臨時収入が待っています。生年月日の調和のとれた数秘のパワーが 1~45 の数字と見事にマッチしました。'
+          ],
+          tarot: [
+            { name: '愚者', up: '新しい始まりと自由な挑戦', rev: '早まった決断、もう一度確認を' },
+            { name: '魔術師', up: '望みを実現する行動力', rev: '才能はあるが方向の見直しを' },
+            { name: '女教皇', up: '直感と内なる知恵', rev: '隠れた情報、焦らないこと' },
+            { name: '女帝', up: '豊かさと実り、金運の流れ', rev: '使いすぎに注意するとき' },
+            { name: '皇帝', up: '安定と確かな基盤', rev: '意地を手放せば道が開ける' },
+            { name: '法王', up: '助言と信頼、伝統の力', rev: '自分のやり方が必要な時期' },
+            { name: '恋人', up: '調和のとれた選択と良い縁', rev: '選択を前にしたためらい' },
+            { name: '戦車', up: '迷いのない前進と勝利', rev: 'ペース配分が必要なとき' },
+            { name: '力', up: 'やさしい勇気と忍耐', rev: '自信を取り戻す過程' },
+            { name: '隠者', up: '深い内省と洞察', rev: 'ひとりより誰かと一緒に' },
+            { name: '運命の輪', up: '幸運の転機、チャンス到来', rev: '流れが変わるのを待とう' },
+            { name: '正義', up: '公正な結果とバランス', rev: '小さなミスを正す' },
+            { name: '吊るされた男', up: '視点を変えると見えるチャンス', rev: '停滞から抜け出す準備' },
+            { name: '死神', up: '終わりと新たな誕生、変化', rev: '変化を恐れないで' },
+            { name: '節制', up: 'バランスと調和、ほどよさ', rev: 'リズムを整え直す' },
+            { name: '悪魔', up: '強い欲望、執着に注意', rev: '束縛から解放される' },
+            { name: '塔', up: '突然の逆転と目覚め', rev: '危機を避ける幸運' },
+            { name: '星', up: '希望とひらめき、願いが叶う', rev: '希望を手放さないで' },
+            { name: '月', up: '夢と無意識からのサイン', rev: '不安が晴れてはっきりする' },
+            { name: '太陽', up: '成功と喜び、最高の吉運', rev: '少し遅れて届く明るい知らせ' },
+            { name: '審判', up: '復活と報い、良い知らせ', rev: '過去を整理するとき' },
+            { name: '世界', up: '完成と達成、大きな実り', rev: 'あと一歩で完成' }
+          ],
+          tarotSummaries: [
+            '今は呼吸を整え、流れを見守るときです。カードがくれた数字をそっと心に留めて。',
+            '小さな変化が集まり、幸運の方向へ動いています。直感を信じてみて。',
+            '良い気が満ちてきています！カードの番号に今日の幸運を乗せましょう。',
+            '3 枚すべて正位置、宇宙が微笑んでいる日です！最高のパワーを込めた番号です。'
+          ]
+        }
+      }
+    };
+
+    const LANG_LOCALES = { ko: 'ko-KR', en: 'en-US', zh: 'zh-CN', ja: 'ja-JP' };
+
+    function detectLanguage() {
+      try {
+        const saved = localStorage.getItem('app-lang');
+        if (saved && I18N[saved]) return saved;
+      } catch (e) {}
+      const nav = (navigator.language || 'ko').toLowerCase();
+      if (nav.startsWith('ko')) return 'ko';
+      if (nav.startsWith('zh')) return 'zh';
+      if (nav.startsWith('ja')) return 'ja';
+      return 'en';
+    }
+
+    let currentLang = detectLanguage();
+
+    // 번역 문구 조회 ({name} 형태 변수 치환, 없으면 한국어로 대체)
+    function t(key, vars) {
+      let text = I18N[currentLang][key];
+      if (text === undefined) text = I18N.ko[key];
+      if (text === undefined) return key;
+      return vars ? fillTemplate(text, vars) : text;
+    }
+
+    function tData() {
+      return I18N[currentLang].data;
+    }
+
+    function fillTemplate(template, vars) {
+      return template.replace(/\{(\w+)\}/g, (m, name) => (vars[name] !== undefined ? vars[name] : m));
+    }
+
+    /* ========================================================
+       0-1. 탭 전환
        ======================================================== */
     const tabButtons = document.querySelectorAll('.tab-btn');
     function switchTab(targetId) {
@@ -1644,10 +2397,10 @@
     function updateThemeUI(isDark) {
       if (isDark) {
         themeIcon.textContent = '☀️';
-        themeText.textContent = '라이트모드';
+        themeText.textContent = t('theme.light');
       } else {
         themeIcon.textContent = '🌙';
-        themeText.textContent = '다크모드';
+        themeText.textContent = t('theme.dark');
       }
       // 다크모드 전환 시 캔버스 기본 색상 조정
       updateDefaultPenColor(isDark);
@@ -1657,7 +2410,7 @@
       const isDark = document.body.classList.toggle('dark');
       localStorage.setItem('app-theme', isDark ? 'dark' : 'light');
       updateThemeUI(isDark);
-      showToast(isDark ? '🌙 다크모드가 적용되었습니다.' : '☀️ 라이트모드가 적용되었습니다.');
+      showToast(isDark ? t('toast.darkOn') : t('toast.lightOn'));
     });
 
     /* ========================================================
@@ -1718,38 +2471,13 @@
     /* ========================================================
        3. 로또 번호 추첨 로직
        ======================================================== */
-    // 복권 종류별 규칙 (main: 기본 번호, bonus: 보너스 번호)
+    // 복권 종류별 규칙 (main: 기본 번호, bonus: 보너스 번호). 문구는 I18N의 lot.<key>.* 참고
     const lotteryTypes = {
-      kr: {
-        icon: '🍀', name: '로또 6/45', badge: '행운의 6/45',
-        main: { count: 6, max: 45 }, bonus: null,
-        rule: '1~45 중 번호 6개',
-        site: 'https://www.dhlottery.co.kr/', siteName: '동행복권 공식 홈페이지'
-      },
-      powerball: {
-        icon: '🇺🇸', name: '파워볼 (Powerball)', badge: '미국 Powerball',
-        main: { count: 5, max: 69 }, bonus: { count: 1, max: 26, label: '파워볼', cls: 'ball-red' },
-        rule: '흰 공 5개 (1~69) + 빨간 파워볼 1개 (1~26)',
-        site: 'https://www.powerball.com/', siteName: 'Powerball 공식 홈페이지'
-      },
-      megamillions: {
-        icon: '🇺🇸', name: '메가밀리언 (Mega Millions)', badge: '미국 Mega Millions',
-        main: { count: 5, max: 70 }, bonus: { count: 1, max: 24, label: '메가볼', cls: 'ball-gold' },
-        rule: '흰 공 5개 (1~70) + 금색 메가볼 1개 (1~24)',
-        site: 'https://www.megamillions.com/', siteName: 'Mega Millions 공식 홈페이지'
-      },
-      euromillions: {
-        icon: '🇪🇺', name: '유로밀리언 (EuroMillions)', badge: '유럽 EuroMillions',
-        main: { count: 5, max: 50 }, bonus: { count: 2, max: 12, label: '럭키스타', cls: 'ball-star' },
-        rule: '번호 5개 (1~50) + 럭키스타 2개 (1~12)',
-        site: 'https://www.national-lottery.co.uk/games/euromillions', siteName: 'EuroMillions 공식 페이지 (영국)'
-      },
-      eurojackpot: {
-        icon: '🇪🇺', name: '유로잭팟 (Eurojackpot)', badge: '유럽 Eurojackpot',
-        main: { count: 5, max: 50 }, bonus: { count: 2, max: 12, label: '유로 넘버', cls: 'ball-orange' },
-        rule: '번호 5개 (1~50) + 유로 넘버 2개 (1~12)',
-        site: 'https://www.eurojackpot.com/', siteName: 'Eurojackpot 공식 홈페이지'
-      }
+      kr: { icon: '🍀', main: { count: 6, max: 45 }, bonus: null, site: 'https://www.dhlottery.co.kr/' },
+      powerball: { icon: '🇺🇸', main: { count: 5, max: 69 }, bonus: { count: 1, max: 26, cls: 'ball-red' }, site: 'https://www.powerball.com/' },
+      megamillions: { icon: '🇺🇸', main: { count: 5, max: 70 }, bonus: { count: 1, max: 24, cls: 'ball-gold' }, site: 'https://www.megamillions.com/' },
+      euromillions: { icon: '🇪🇺', main: { count: 5, max: 50 }, bonus: { count: 2, max: 12, cls: 'ball-star' }, site: 'https://www.national-lottery.co.uk/games/euromillions' },
+      eurojackpot: { icon: '🇪🇺', main: { count: 5, max: 50 }, bonus: { count: 2, max: 12, cls: 'ball-orange' }, site: 'https://www.eurojackpot.com/' }
     };
 
     let currentLottery = 'kr';
@@ -1785,15 +2513,19 @@
         chip.setAttribute('aria-checked', isActive ? 'true' : 'false');
       });
       lotteryBadgeIcon.textContent = lottery.icon;
-      lotteryBadgeText.textContent = lottery.badge;
-      lotteryRule.textContent = lottery.rule;
       colorLegend.style.display = key === 'kr' ? '' : 'none';
       lotteryLink.href = lottery.site;
-      lotteryLinkText.textContent = lottery.siteName;
+      refreshLotteryTexts();
 
       if (regenerate && changed && generatedSets.length > 0) {
         generateLottoNumbers();
       }
+    }
+
+    function refreshLotteryTexts() {
+      lotteryBadgeText.textContent = t(`lot.${currentLottery}.badge`);
+      lotteryRule.textContent = t(`lot.${currentLottery}.rule`);
+      lotteryLinkText.textContent = t(`lot.${currentLottery}.site`);
     }
 
     lotteryChips.forEach(chip => {
@@ -1836,10 +2568,10 @@
       return [...mainCls, ...bonusCls];
     }
 
-    function formatSetText(set, lottery) {
+    function formatSetText(set, lotteryKey) {
       const mainText = set.main.map(n => String(n).padStart(2, ' ')).join(', ');
       if (!set.bonus.length) return mainText;
-      return `${mainText} + ${lottery.bonus.label} ${set.bonus.join(', ')}`;
+      return `${mainText} + ${t(`lot.${lotteryKey}.bonus`)} ${set.bonus.join(', ')}`;
     }
 
     function getBallClass(num) {
@@ -1901,16 +2633,15 @@
     btnCopy.addEventListener('click', () => {
       if (generatedSets.length === 0) return;
       const labels = ['A', 'B', 'C', 'D', 'E'];
-      const lottery = lotteryTypes[currentLottery];
-      let text = `🍀 [${lottery.name} 행운 번호 추천]\n`;
+      let text = t('lotto.copyHeader', { name: t(`lot.${currentLottery}.name`) }) + '\n';
 
       generatedSets.forEach((set, idx) => {
-        const line = currentCount > 1 ? `${labels[idx]}게임: ` : '추천번호: ';
-        text += `${line}${formatSetText(set, lottery)}\n`;
+        const line = currentCount > 1 ? t('lotto.gameLine', { label: labels[idx] }) : t('lotto.numbersLine');
+        text += `${line}${formatSetText(set, currentLottery)}\n`;
       });
 
       navigator.clipboard.writeText(text.trim()).then(() => {
-        showToast('✅ 번호가 클립보드에 복사되었습니다!');
+        showToast(t('lotto.toastCopied'));
       }).catch(() => {
         const textarea = document.createElement('textarea');
         textarea.value = text.trim();
@@ -1918,7 +2649,7 @@
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
-        showToast('✅ 번호가 클립보드에 복사되었습니다!');
+        showToast(t('lotto.toastCopied'));
       });
     });
 
@@ -1927,7 +2658,7 @@
       resultsArea.innerHTML = `
         <div class="placeholder-box" id="placeholder">
           <div class="icon">🎱</div>
-          <p>아래 '번호 추첨하기' 버튼을 눌러주세요!</p>
+          <p data-i18n="lotto.placeholder">${t('lotto.placeholder')}</p>
         </div>
       `;
       btnCopy.disabled = true;
@@ -1971,7 +2702,7 @@
       for (let y = currentYear; y >= 1930; y--) {
         const opt = document.createElement('option');
         opt.value = y;
-        opt.textContent = `${y}년`;
+        opt.textContent = new Intl.DateTimeFormat(LANG_LOCALES[currentLang], { year: 'numeric' }).format(new Date(y, 0, 1));
         if (y === viewYear) opt.selected = true;
         calYearSelect.appendChild(opt);
       }
@@ -1981,10 +2712,16 @@
       for (let m = 0; m < 12; m++) {
         const opt = document.createElement('option');
         opt.value = m;
-        opt.textContent = `${m + 1}월`;
+        opt.textContent = new Intl.DateTimeFormat(LANG_LOCALES[currentLang], { month: 'short' }).format(new Date(2000, m, 1));
         if (m === viewMonth) opt.selected = true;
         calMonthSelect.appendChild(opt);
       }
+
+      // 요일 머리글 (2023-01-01은 일요일)
+      const weekdayFmt = new Intl.DateTimeFormat(LANG_LOCALES[currentLang], { weekday: 'short' });
+      document.querySelectorAll('.calendar-day-head').forEach(el => {
+        el.textContent = weekdayFmt.format(new Date(2023, 0, 1 + Number(el.dataset.dow)));
+      });
 
       renderCalendarDays();
       updateDateDisplay();
@@ -2041,7 +2778,8 @@
       const padM = String(selectedMonth + 1).padStart(2, '0');
       const padD = String(selectedDay).padStart(2, '0');
       birthDateInput.value = `${selectedYear}-${padM}-${padD}`;
-      calDisplayText.textContent = `📅 ${selectedYear}년 ${padM}월 ${padD}일`;
+      const dateText = new Intl.DateTimeFormat(LANG_LOCALES[currentLang], { dateStyle: 'long' }).format(new Date(selectedYear, selectedMonth, selectedDay));
+      calDisplayText.textContent = `📅 ${dateText}`;
     }
 
     function openCalendar() {
@@ -2137,40 +2875,25 @@
 
     // 12간지(띠) 분석 및 행운 속성 데이터
     const zodiacData = [
-      { name: '원숭이띠', icon: '🐵', element: '금(金)', color: '백색/은회색', range: [31, 40], rangeName: '31 ~ 40번 (회색)', char: '지혜와 번뜩이는 기지' },
-      { name: '닭띠', icon: '🐔', element: '금(金)', color: '실버 골드', range: [31, 40], rangeName: '31 ~ 40번 (회색)', char: '치밀함과 결단력' },
-      { name: '개띠', icon: '🐶', element: '토(土)', color: '황금 브라운', range: [1, 10], rangeName: '1 ~ 10번 (노랑)', char: '성실함과 우직한 행운' },
-      { name: '돼지띠', icon: '🐷', element: '수(水)', color: '딥 사파이어', range: [11, 20], rangeName: '11 ~ 20번 (파랑)', char: '풍요와 복(福)을 부르는 기운' },
-      { name: '쥐띠', icon: '🐭', element: '수(水)', color: '코발트 블루', range: [11, 20], rangeName: '11 ~ 20번 (파랑)', char: '민첩함과 타고난 재물 감각' },
-      { name: '소띠', icon: '🐮', element: '토(土)', color: '황금 옐로우', range: [1, 10], rangeName: '1 ~ 10번 (노랑)', char: '인내와 묵직한 대박의 결실' },
-      { name: '호랑이띠', icon: '🐯', element: '목(木)', color: '포레스트 그린', range: [41, 45], rangeName: '41 ~ 45번 (초록)', char: '용맹과 당당한 승부수' },
-      { name: '토끼띠', icon: '🐰', element: '목(木)', color: '에메랄드 그린', range: [41, 45], rangeName: '41 ~ 45번 (초록)', char: '평온함과 세심한 직관' },
-      { name: '용띠', icon: '🐲', element: '토(土)', color: '임페리얼 골드', range: [1, 10], rangeName: '1 ~ 10번 (노랑)', char: '웅대한 비상과 거대한 행운' },
-      { name: '뱀띠', icon: '🐍', element: '화(火)', color: '루비 레드', range: [21, 30], rangeName: '21 ~ 30번 (빨강)', char: '심미안과 예리한 통찰' },
-      { name: '말띠', icon: '🐴', element: '화(火)', color: '스칼렛 레드', range: [21, 30], rangeName: '21 ~ 30번 (빨강)', char: '역동적인 에너지와 질주' },
-      { name: '양띠', icon: '🐑', element: '토(土)', color: '따스한 앰버', range: [1, 10], rangeName: '1 ~ 10번 (노랑)', char: '온화함과 조화로운 복운' }
+      { icon: '🐵', element: 'metal', range: [31, 40], rangeColor: 'gray' },
+      { icon: '🐔', element: 'metal', range: [31, 40], rangeColor: 'gray' },
+      { icon: '🐶', element: 'earth', range: [1, 10], rangeColor: 'yellow' },
+      { icon: '🐷', element: 'water', range: [11, 20], rangeColor: 'blue' },
+      { icon: '🐭', element: 'water', range: [11, 20], rangeColor: 'blue' },
+      { icon: '🐮', element: 'earth', range: [1, 10], rangeColor: 'yellow' },
+      { icon: '🐯', element: 'wood', range: [41, 45], rangeColor: 'green' },
+      { icon: '🐰', element: 'wood', range: [41, 45], rangeColor: 'green' },
+      { icon: '🐲', element: 'earth', range: [1, 10], rangeColor: 'yellow' },
+      { icon: '🐍', element: 'fire', range: [21, 30], rangeColor: 'red' },
+      { icon: '🐴', element: 'fire', range: [21, 30], rangeColor: 'red' },
+      { icon: '🐑', element: 'earth', range: [1, 10], rangeColor: 'yellow' }
     ];
 
-    // 서양 12별자리 분석
-    function getConstellation(month, day) {
+    // 서양 12별자리 (이름은 I18N data.signs, 같은 순서)
+    const signIcons = ['♑', '♒', '♓', '♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑'];
+    function getConstellationIndex(month, day) {
       const dates = [20, 19, 21, 20, 21, 22, 23, 23, 23, 23, 22, 22];
-      const signs = [
-        { name: '염소자리', icon: '♑' },
-        { name: '물병자리', icon: '♒' },
-        { name: '물고기자리', icon: '♓' },
-        { name: '양자리', icon: '♈' },
-        { name: '황소자리', icon: '♉' },
-        { name: '쌍둥이자리', icon: '♊' },
-        { name: '게자리', icon: '♋' },
-        { name: '사자자리', icon: '♌' },
-        { name: '처녀자리', icon: '♍' },
-        { name: '천칭자리', icon: '♎' },
-        { name: '전갈자리', icon: '♏' },
-        { name: '사수자리', icon: '♐' },
-        { name: '염소자리', icon: '♑' }
-      ];
-      const idx = day < dates[month - 1] ? month - 1 : month;
-      return signs[idx];
+      return day < dates[month - 1] ? month - 1 : month;
     }
 
     // 생년월일 + 오늘의 운세 기반 연계 번호 생성
@@ -2209,17 +2932,18 @@
     }
 
     let lastGeneratedLinkedNumbers = [];
+    let lastFortune = null;
 
     btnFortune.addEventListener('click', () => {
       const val = birthDateInput.value;
       if (!val) {
-        showToast('⚠️ 생년월일을 올바르게 선택해주세요!');
+        showToast(t('fortune.toastInvalid'));
         return;
       }
 
       const [y, m, d] = val.split('-').map(Number);
       if (!y || !m || !d) {
-        showToast('⚠️ 생년월일 형식이 올바르지 않습니다.');
+        showToast(t('fortune.toastFormat'));
         return;
       }
 
@@ -2229,76 +2953,94 @@
       setTimeout(() => {
         fortuneCrystal.style.transform = 'scale(1) rotate(0deg)';
 
-        const zodiac = zodiacData[y % 12];
-        const constellation = getConstellation(m, d);
+        const zodiacIdx = y % 12;
 
         // 오늘 날짜와 생년월일을 조합한 맞춤형 운세 생성
         const today = new Date();
         const scoreSeed = ((y * 7) + (m * 13) + (d * 17) + (today.getDate() * 11) + (today.getMonth() * 23)) % 15;
-        const luckScore = 86 + scoreSeed; // 86 ~ 100점
-        const starCount = luckScore >= 95 ? '★★★★★' : '★★★★☆';
 
         // 6개 맞춤 연계 번호 생성
-        lastGeneratedLinkedNumbers = generateLinkedLottoNumbers(y, m, d, zodiac.range);
+        lastGeneratedLinkedNumbers = generateLinkedLottoNumbers(y, m, d, zodiacData[zodiacIdx].range);
 
-        // 운세 스토리 메시지
-        const fortuneMessages = [
-          `오늘 ${y}년생 ${zodiac.name}인 당신에게는 ${zodiac.element}의 기운이 강력하게 작용하는 하루입니다. 특히 ${zodiac.rangeName} 대역에서 재물의 흐름이 강하게 포착됩니다. 당신의 생일에서 파생된 번호와 오늘 우주의 기운이 어우러져 기적의 잭팟을 부르고 있습니다!`,
-          `${constellation.icon} ${constellation.name}의 별자리가 행운의 각도를 이루며 ${zodiac.char}이 빛을 발하는 날입니다. 오늘은 남의 말보다는 본인의 첫 번째 직관을 믿고 선택한 번호에서 큰 복운이 깃듭니다.`,
-          `금전운이 절정에 달하는 특별한 길일입니다! ${zodiac.element}의 에너지와 어우러지는 ${zodiac.color} 계열의 기운을 담아 추천된 아래의 6개 번호 조합을 눈여겨보세요.`,
-          `잔잔한 일상 속에서 뜻밖의 횡재수가 기다리고 있습니다. 생년월일의 조화로운 수비학적 기운이 1~45의 숫자들과 절묘하게 매칭되었습니다.`
-        ];
-        const selectedMessage = fortuneMessages[(scoreSeed + today.getDay()) % fortuneMessages.length];
+        lastFortune = {
+          y, m, d,
+          zodiacIdx,
+          signIdx: getConstellationIndex(m, d),
+          luckScore: 86 + scoreSeed, // 86 ~ 100점
+          messageIdx: (scoreSeed + today.getDay()) % 4
+        };
+        renderFortune();
 
-        // 결과 렌더링
-        fortuneContent.innerHTML = `
-          <div class="zodiac-tag">
-            <span>${zodiac.icon}</span> ${y}년생 ${zodiac.name} · ${constellation.icon} ${constellation.name} · ${zodiac.element}의 기운
-          </div>
-          <div class="fortune-stars">${starCount} (행운 지수: ${luckScore}점)</div>
-          <div class="fortune-title">"오늘 당신의 운명과 숫자가 맞닿는 날!"</div>
-          <p class="fortune-desc">${selectedMessage}</p>
-
-          <div class="fortune-chips">
-            <div class="fortune-chip">🍀 집중 추천: <span class="val">${zodiac.rangeName}</span></div>
-            <div class="fortune-chip">🎨 행운의 색: <span class="val">${zodiac.color}</span></div>
-            <div class="fortune-chip">💡 추천 팁: <span class="val">${luckScore >= 94 ? '오늘 구매 강력 추천' : '심호흡 후 직감 발휘'}</span></div>
-          </div>
-
-          <div class="fortune-lotto-wrap">
-            <div class="fortune-lotto-title">
-              <span>🎱</span> 생년월일 맞춤 연계 추천 번호
-            </div>
-            <div class="balls-list" id="fortune-balls-list">
-              ${lastGeneratedLinkedNumbers.map((num, i) => `
-                <div class="ball ${getBallClass(num)}" style="animation-delay: ${i * 0.08}s">${num}</div>
-              `).join('')}
-            </div>
-            <div class="fortune-actions">
-              <button class="btn-sub" id="btn-fortune-copy">
-                <span>📋</span> 이 번호 복사
-              </button>
-              <button class="btn-sub" id="btn-apply-main">
-                <span>🎲</span> 메인 추첨기에 전송
-              </button>
-            </div>
-          </div>
-        `;
-
-        // 맞춤 번호 복사 이벤트
-        document.getElementById('btn-fortune-copy').addEventListener('click', () => {
-          const text = `🍀 [${y}년생 ${zodiac.name} 맞춤 로또 행운 번호]\n생년월일: ${val} (${constellation.name})\n추천번호: ${lastGeneratedLinkedNumbers.map(n => String(n).padStart(2, ' ')).join(', ')}`;
-          copyText(text, '✅ 맞춤 로또 번호가 복사되었습니다!');
-        });
-
-        // 메인 추첨기 적용 이벤트
-        document.getElementById('btn-apply-main').addEventListener('click', () => {
-          applyToMainLotto(lastGeneratedLinkedNumbers, '맞춤', '🍀 맞춤 번호가 메인 추첨기에 적용되었습니다!');
-        });
-
-        showToast(`🔮 ${y}년생 ${zodiac.name} 맞춤 운세와 번호가 완성되었습니다!`);
+        showToast(t('fortune.toastDone', { year: y, zodiac: tData().zodiac[zodiacIdx].name }));
       }, 400);
     });
+
+    // 운세 결과 렌더링 (언어를 바꾸면 같은 결과를 새 언어로 다시 그림)
+    function renderFortune() {
+      if (!lastFortune) return;
+      const { y, m, d, zodiacIdx, signIdx, luckScore, messageIdx } = lastFortune;
+      const data = tData();
+      const zodiacBase = zodiacData[zodiacIdx];
+      const zodiacText = data.zodiac[zodiacIdx];
+      const elementName = data.elements[zodiacBase.element];
+      const signName = data.signs[signIdx];
+      const signIcon = signIcons[signIdx];
+      const rangeName = t('fortune.rangeName', { min: zodiacBase.range[0], max: zodiacBase.range[1], color: t(`ballColor.${zodiacBase.rangeColor}`) });
+      const starCount = luckScore >= 95 ? '★★★★★' : '★★★★☆';
+      const message = fillTemplate(data.fortuneMessages[messageIdx], {
+        year: y, zodiac: zodiacText.name, element: elementName, rangeName,
+        cIcon: signIcon, cName: signName, char: zodiacText.char, color: zodiacText.color
+      });
+
+      fortuneContent.innerHTML = `
+        <div class="zodiac-tag">
+          <span>${zodiacBase.icon}</span> ${t('fortune.tag', { year: y, zodiac: zodiacText.name, cIcon: signIcon, cName: signName, element: elementName })}
+        </div>
+        <div class="fortune-stars">${starCount} ${t('fortune.score', { score: luckScore })}</div>
+        <div class="fortune-title">${t('fortune.headline')}</div>
+        <p class="fortune-desc">${message}</p>
+
+        <div class="fortune-chips">
+          <div class="fortune-chip">${t('fortune.chipRange')} <span class="val">${rangeName}</span></div>
+          <div class="fortune-chip">${t('fortune.chipColor')} <span class="val">${zodiacText.color}</span></div>
+          <div class="fortune-chip">${t('fortune.chipTip')} <span class="val">${luckScore >= 94 ? t('fortune.tipStrong') : t('fortune.tipCalm')}</span></div>
+        </div>
+
+        <div class="fortune-lotto-wrap">
+          <div class="fortune-lotto-title">
+            <span>🎱</span> ${t('fortune.numbersTitle')}
+          </div>
+          <div class="balls-list" id="fortune-balls-list">
+            ${lastGeneratedLinkedNumbers.map((num, i) => `
+              <div class="ball ${getBallClass(num)}" style="animation-delay: ${i * 0.08}s">${num}</div>
+            `).join('')}
+          </div>
+          <div class="fortune-actions">
+            <button class="btn-sub" id="btn-fortune-copy">
+              <span>📋</span> ${t('common.copyThis')}
+            </button>
+            <button class="btn-sub" id="btn-apply-main">
+              <span>🎲</span> ${t('common.sendMain')}
+            </button>
+          </div>
+        </div>
+      `;
+
+      // 맞춤 번호 복사 이벤트
+      document.getElementById('btn-fortune-copy').addEventListener('click', () => {
+        const dateText = new Intl.DateTimeFormat(LANG_LOCALES[currentLang], { dateStyle: 'long' }).format(new Date(y, m - 1, d));
+        const text = t('fortune.copyText', {
+          year: y, zodiac: tData().zodiac[zodiacIdx].name, date: dateText, cName: tData().signs[signIdx],
+          nums: lastGeneratedLinkedNumbers.map(n => String(n).padStart(2, ' ')).join(', ')
+        });
+        copyText(text, t('fortune.toastCopied'));
+      });
+
+      // 메인 추첨기 적용 이벤트
+      document.getElementById('btn-apply-main').addEventListener('click', () => {
+        applyToMainLotto(lastGeneratedLinkedNumbers, 'tag.fortune', t('fortune.toastApplied'));
+      });
+    }
 
     // 클립보드 복사 (구형 브라우저 대비 폴백 포함)
     function copyText(text, message) {
@@ -2316,7 +3058,7 @@
     }
 
     // 연계 번호를 메인 추첨기에 1게임으로 적용하고 로또 탭으로 이동
-    function applyToMainLotto(numbers, tagLabel, message) {
+    function applyToMainLotto(numbers, tagKey, message) {
       selectLottery('kr', false);
       generatedSets = [{ main: numbers, bonus: [] }];
       currentCount = 1;
@@ -2325,7 +3067,7 @@
 
       resultsArea.innerHTML = `
         <div class="lotto-game-row">
-          <div class="game-tag" style="background: #fdf4ff; color: #a855f7;">${tagLabel}</div>
+          <div class="game-tag" style="background: #fdf4ff; color: #a855f7;" data-i18n="${tagKey}">${t(tagKey)}</div>
           <div class="balls-list">
             ${numbers.map(num => `<div class="ball ${getBallClass(num)}" style="animation-delay: 0.05s">${num}</div>`).join('')}
           </div>
@@ -2341,33 +3083,13 @@
     /* ========================================================
        타로 카드 & 로또 번호 연계 로직
        ======================================================== */
-    // 메이저 아르카나 22장 (번호, 이름, 상징, 정방향/역방향 의미)
-    const tarotDeck = [
-      { no: 0, name: '바보', emoji: '🃏', up: '새로운 시작과 자유로운 도전', rev: '성급한 결정, 한 번 더 살피기' },
-      { no: 1, name: '마법사', emoji: '🪄', up: '원하는 것을 이뤄내는 실행력', rev: '재능은 있으나 방향 점검 필요' },
-      { no: 2, name: '여사제', emoji: '🌙', up: '직관과 내면의 지혜', rev: '숨겨진 정보, 서두르지 않기' },
-      { no: 3, name: '여황제', emoji: '🌸', up: '풍요와 결실, 재물의 흐름', rev: '과한 소비를 조심할 때' },
-      { no: 4, name: '황제', emoji: '👑', up: '안정과 확고한 기반', rev: '고집을 내려놓으면 길이 열림' },
-      { no: 5, name: '교황', emoji: '📜', up: '조언과 신뢰, 전통의 힘', rev: '나만의 방식이 필요한 시기' },
-      { no: 6, name: '연인', emoji: '💞', up: '조화로운 선택과 좋은 인연', rev: '선택 앞의 망설임' },
-      { no: 7, name: '전차', emoji: '🏇', up: '거침없는 전진과 승리', rev: '속도 조절이 필요한 때' },
-      { no: 8, name: '힘', emoji: '🦁', up: '부드러운 용기와 인내', rev: '자신감을 되찾는 과정' },
-      { no: 9, name: '은둔자', emoji: '🏮', up: '깊은 성찰과 통찰', rev: '혼자보다 함께가 좋은 때' },
-      { no: 10, name: '운명의 수레바퀴', emoji: '🎡', up: '행운의 전환점, 기회의 도래', rev: '흐름이 바뀌기를 기다리기' },
-      { no: 11, name: '정의', emoji: '⚖️', up: '공정한 결과와 균형', rev: '작은 실수 바로잡기' },
-      { no: 12, name: '매달린 사람', emoji: '🙃', up: '관점을 바꾸면 보이는 기회', rev: '정체에서 벗어날 준비' },
-      { no: 13, name: '죽음', emoji: '🦋', up: '끝과 새로운 탄생, 변화', rev: '변화를 두려워하지 않기' },
-      { no: 14, name: '절제', emoji: '🏺', up: '균형과 조화, 적당함의 미덕', rev: '리듬을 다시 맞추기' },
-      { no: 15, name: '악마', emoji: '😈', up: '강한 욕망과 집착 경계', rev: '속박에서 벗어나는 해방' },
-      { no: 16, name: '탑', emoji: '⚡', up: '갑작스러운 반전과 각성', rev: '위기를 피해 가는 행운' },
-      { no: 17, name: '별', emoji: '⭐', up: '희망과 영감, 소원 성취', rev: '희망을 놓지 않기' },
-      { no: 18, name: '달', emoji: '🌕', up: '꿈과 무의식이 주는 신호', rev: '불안이 걷히고 선명해짐' },
-      { no: 19, name: '태양', emoji: '☀️', up: '성공과 기쁨, 최고의 길운', rev: '조금 늦게 오는 밝은 소식' },
-      { no: 20, name: '심판', emoji: '📯', up: '부활과 보상, 좋은 소식', rev: '지난 일을 정리할 때' },
-      { no: 21, name: '세계', emoji: '🌍', up: '완성과 성취, 큰 결실', rev: '마지막 한 걸음 남음' }
-    ];
+    // 메이저 아르카나 22장 (이름·의미는 I18N data.tarot[번호])
+    const tarotDeck = ['🃏', '🪄', '🌙', '🌸', '👑', '📜', '💞', '🏇', '🦁', '🏮', '🎡', '⚖️', '🙃', '🦋', '🏺', '😈', '⚡', '⭐', '🌕', '☀️', '📯', '🌍']
+      .map((emoji, no) => ({ no, emoji }));
 
-    const tarotSlotNames = ['과거', '현재', '미래'];
+    const tarotSlotName = i => t(`tarot.slot${i}`);
+    const tarotCardName = card => tData().tarot[card.no].name;
+    const tarotDirName = card => t(card.reversed ? 'tarot.reversed' : 'tarot.upright');
     const tarotCardEls = document.querySelectorAll('.tarot-card');
     const tarotHint = document.getElementById('tarot-hint');
     const tarotResult = document.getElementById('tarot-result');
@@ -2384,28 +3106,39 @@
       tarotDraw = deck.slice(0, 3).map(card => ({ ...card, reversed: Math.random() < 0.3, flipped: false }));
       lastTarotNumbers = [];
 
-      tarotCardEls.forEach((el, i) => {
-        const card = tarotDraw[i];
+      tarotCardEls.forEach(el => {
         el.classList.remove('flipped');
         el.disabled = false;
+      });
+      renderTarotCards();
+      tarotResult.innerHTML = `
+        <div class="fortune-crystal">🃏</div>
+        <p class="fortune-desc" data-i18n="tarot.placeholder">${t('tarot.placeholder')}</p>
+      `;
+    }
+
+    // 카드 앞면 문구와 안내 문구 렌더링 (언어 변경 시에도 호출)
+    function renderTarotCards() {
+      tarotCardEls.forEach((el, i) => {
+        const card = tarotDraw[i];
         el.innerHTML = `
           <div class="tarot-inner">
             <div class="tarot-face tarot-back">✦</div>
             <div class="tarot-face tarot-front${card.reversed ? ' reversed' : ''}">
               <span class="tarot-no">${card.no}</span>
               <span class="tarot-emoji">${card.emoji}</span>
-              <span class="tarot-name">${card.name}</span>
-              <span class="tarot-dir">${card.reversed ? '역방향' : '정방향'}</span>
+              <span class="tarot-name">${tarotCardName(card)}</span>
+              <span class="tarot-dir">${tarotDirName(card)}</span>
             </div>
           </div>
         `;
+        el.setAttribute('aria-label', card.flipped
+          ? t('tarot.cardAria', { slot: tarotSlotName(i), name: tarotCardName(card), dir: tarotDirName(card) })
+          : t('tarot.flipAria', { slot: tarotSlotName(i) }));
       });
 
-      tarotHint.textContent = '카드를 한 장씩 눌러 뒤집어 보세요 (0 / 3)';
-      tarotResult.innerHTML = `
-        <div class="fortune-crystal">🃏</div>
-        <p class="fortune-desc">세 장을 모두 뒤집으면 타로 해석과 연계 로또 번호가 나타납니다!</p>
-      `;
+      const flippedCount = tarotDraw.filter(c => c.flipped).length;
+      tarotHint.textContent = flippedCount < 3 ? t('tarot.hint', { n: flippedCount }) : t('tarot.hintDone');
     }
 
     // 카드 번호(1~22)와 정/역방향 보조 번호(23~45)로 6개 번호 생성
@@ -2422,32 +3155,28 @@
     }
 
     function renderTarotResult() {
-      lastTarotNumbers = generateTarotLottoNumbers(tarotDraw);
+      if (!lastTarotNumbers.length) return;
+      const data = tData();
       const uprightCount = tarotDraw.filter(c => !c.reversed).length;
-      const summaries = [
-        '지금은 숨을 고르며 흐름을 지켜볼 때입니다. 카드가 건넨 숫자를 가볍게 품어 두세요.',
-        '작은 변화들이 모여 행운의 방향으로 움직이고 있습니다. 직감을 믿어 보세요.',
-        '좋은 기운이 차오르고 있습니다! 카드의 번호에 오늘의 행운을 실어 보세요.',
-        '세 장 모두 정방향, 우주가 활짝 웃고 있는 날입니다! 최고의 기운이 담긴 번호입니다.'
-      ];
+      const dirShort = card => t(card.reversed ? 'tarot.reversedShort' : 'tarot.uprightShort');
 
       tarotResult.innerHTML = `
         <div class="fortune-stars">${'★'.repeat(2 + uprightCount)}${'☆'.repeat(3 - uprightCount)}</div>
-        <div class="fortune-title">"${tarotDraw[2].name} 카드가 비추는 당신의 행운"</div>
-        <p class="fortune-desc">${summaries[uprightCount]}</p>
+        <div class="fortune-title">${t('tarot.headline', { name: tarotCardName(tarotDraw[2]) })}</div>
+        <p class="fortune-desc">${data.tarotSummaries[uprightCount]}</p>
 
         <div class="tarot-readings">
           ${tarotDraw.map((card, i) => `
             <div class="tarot-reading">
-              <strong>${tarotSlotNames[i]} · ${card.emoji} ${card.name} (${card.reversed ? '역' : '정'})</strong><br>
-              ${card.reversed ? card.rev : card.up}
+              <strong>${tarotSlotName(i)} · ${card.emoji} ${tarotCardName(card)} (${dirShort(card)})</strong><br>
+              ${card.reversed ? data.tarot[card.no].rev : data.tarot[card.no].up}
             </div>
           `).join('')}
         </div>
 
         <div class="fortune-lotto-wrap">
           <div class="fortune-lotto-title">
-            <span>🎱</span> 타로 연계 추천 번호
+            <span>🎱</span> ${t('tarot.numbersTitle')}
           </div>
           <div class="balls-list">
             ${lastTarotNumbers.map((num, i) => `
@@ -2456,27 +3185,24 @@
           </div>
           <div class="fortune-actions">
             <button class="btn-sub" id="btn-tarot-copy">
-              <span>📋</span> 이 번호 복사
+              <span>📋</span> ${t('common.copyThis')}
             </button>
             <button class="btn-sub" id="btn-tarot-apply">
-              <span>🎲</span> 메인 추첨기에 전송
+              <span>🎲</span> ${t('common.sendMain')}
             </button>
           </div>
         </div>
       `;
 
       document.getElementById('btn-tarot-copy').addEventListener('click', () => {
-        const cardsText = tarotDraw.map((c, i) => `${tarotSlotNames[i]}: ${c.name}(${c.reversed ? '역' : '정'})`).join(' / ');
-        const text = `🃏 [타로 연계 로또 행운 번호]\n${cardsText}\n추천번호: ${lastTarotNumbers.map(n => String(n).padStart(2, ' ')).join(', ')}`;
-        copyText(text, '✅ 타로 로또 번호가 복사되었습니다!');
+        const cardsText = tarotDraw.map((c, i) => `${tarotSlotName(i)}: ${tarotCardName(c)}(${dirShort(c)})`).join(' / ');
+        const text = `${t('tarot.copyHeader')}\n${cardsText}\n${t('lotto.numbersLine')}${lastTarotNumbers.map(n => String(n).padStart(2, ' ')).join(', ')}`;
+        copyText(text, t('tarot.toastCopied'));
       });
 
       document.getElementById('btn-tarot-apply').addEventListener('click', () => {
-        applyToMainLotto(lastTarotNumbers, '타로', '🃏 타로 번호가 메인 추첨기에 적용되었습니다!');
+        applyToMainLotto(lastTarotNumbers, 'tag.tarot', t('tarot.toastApplied'));
       });
-
-      playFortuneSound();
-      showToast('🃏 타로 해석과 연계 번호가 완성되었습니다!');
     }
 
     tarotCardEls.forEach((el, i) => {
@@ -2486,22 +3212,25 @@
         card.flipped = true;
         el.classList.add('flipped');
         el.disabled = true;
-        el.setAttribute('aria-label', `${tarotSlotNames[i]} 카드: ${card.name} ${card.reversed ? '역방향' : '정방향'}`);
+        el.setAttribute('aria-label', t('tarot.cardAria', { slot: tarotSlotName(i), name: tarotCardName(card), dir: tarotDirName(card) }));
         playPopSound(480 + card.no * 20);
 
         const flippedCount = tarotDraw.filter(c => c.flipped).length;
-        tarotHint.textContent = flippedCount < 3
-          ? `카드를 한 장씩 눌러 뒤집어 보세요 (${flippedCount} / 3)`
-          : '카드가 모두 펼쳐졌습니다 ✨';
+        tarotHint.textContent = flippedCount < 3 ? t('tarot.hint', { n: flippedCount }) : t('tarot.hintDone');
         if (flippedCount === 3) {
-          setTimeout(renderTarotResult, 500);
+          setTimeout(() => {
+            lastTarotNumbers = generateTarotLottoNumbers(tarotDraw);
+            renderTarotResult();
+            playFortuneSound();
+            showToast(t('tarot.toastDone'));
+          }, 500);
         }
       });
     });
 
     btnTarotShuffle.addEventListener('click', () => {
       shuffleTarot();
-      showToast('🔀 카드를 새로 섞었습니다!');
+      showToast(t('tarot.toastShuffled'));
     });
 
     shuffleTarot();
@@ -2651,14 +3380,14 @@
       btnWbEraser.classList.toggle('active', isEraser);
       colorBtns.forEach(b => b.classList.remove('active'));
       updateStrokeStyle();
-      showToast(isEraser ? '🧹 지우개 모드가 활성화되었습니다.' : '✏️ 펜 모드로 돌아왔습니다.');
+      showToast(isEraser ? t('sketch.toastEraser') : t('sketch.toastPen'));
     });
 
     // 전체 지우기
     btnWbClear.addEventListener('click', () => {
       const rect = canvas.getBoundingClientRect();
       ctxWb.clearRect(0, 0, rect.width, rect.height);
-      showToast('🗑️ 스케치북이 초기화되었습니다.');
+      showToast(t('sketch.toastCleared'));
     });
 
     // 캔버스 이미지 다운로드
@@ -2679,7 +3408,7 @@
       link.download = `lucky-lotto-note-${Date.now()}.png`;
       link.href = saveCanvas.toDataURL('image/png');
       link.click();
-      showToast('💾 스케치북 메모가 이미지로 저장되었습니다!');
+      showToast(t('sketch.toastSaved'));
     });
 
     setTimeout(resizeWhiteboard, 50);
@@ -2769,8 +3498,48 @@
       }, 2300);
     }
 
+    /* ========================================================
+       8. 언어 적용
+       ======================================================== */
+    const langButtons = document.querySelectorAll('.lang-btn');
+
+    function applyLanguage(lang) {
+      currentLang = I18N[lang] ? lang : 'ko';
+      document.documentElement.lang = currentLang;
+      document.title = t('doc.title');
+
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+      document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+      document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
+
+      langButtons.forEach(btn => {
+        const isActive = btn.dataset.lang === currentLang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      // 자바스크립트로 만든 문구 다시 그리기
+      themeText.textContent = document.body.classList.contains('dark') ? t('theme.light') : t('theme.dark');
+      refreshLotteryTexts();
+      initCalendarUI();
+      renderFortune();
+      renderTarotCards();
+      renderTarotResult();
+
+      try { localStorage.setItem('app-lang', currentLang); } catch (e) {}
+    }
+
+    langButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.lang === currentLang) return;
+        applyLanguage(btn.dataset.lang);
+        playPopSound(620);
+      });
+    });
+
     // 앱 초기화 실행 (모든 변수 및 DOM 바인딩 완료 후)
     initTheme();
+    applyLanguage(currentLang);
     setTimeout(resizeWhiteboard, 100);
   </script>
 </body>
