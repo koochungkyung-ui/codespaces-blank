@@ -81,6 +81,7 @@
 - `PRECACHE`에는 Cloudflare 주소 규칙대로 `.html` 없이 `/about`, `/privacy`를 씁니다. 목록 중 하나라도 404가 나면 서비스 워커 설치가 통째로 실패합니다.
 - 아이콘은 SVG를 resvg로 PNG로 바꿔 만들었습니다(192, 512, maskable 512, apple-touch 180). maskable 아이콘은 그림이 가운데 80% 안에 들어가야 합니다.
 - manifest의 앱 이름은 한국어 하나입니다(manifest는 언어별로 바꿀 수 없음).
+- 📲 앱 설치 버튼(`#install-btn`)은 다크모드 버튼과 함께 오른쪽 위 `.top-actions` 안에 있습니다. 처음엔 `hidden`이고, 브라우저가 `beforeinstallprompt`를 보낼 때(Chrome·Edge·삼성 인터넷)나 아이폰·아이패드일 때만 보입니다. 아이폰은 설치 창이 없어서 "공유 → 홈 화면에 추가" 안내 토스트(`install.ios`)를 띄웁니다. 이미 설치된 앱으로 열면 보이지 않습니다. 폰에서는 아이콘만 보입니다.
 
 ## 공유 미리보기 이미지
 

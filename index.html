@@ -127,12 +127,19 @@
       right: -80px;
     }
 
-    /* 플로팅 다크모드 토글 버튼 */
-    .theme-toggle {
+    /* 오른쪽 위 버튼 묶음 (앱 설치 + 다크모드) */
+    .top-actions {
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 플로팅 다크모드 토글 버튼 */
+    .theme-toggle {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -163,6 +170,11 @@
 
     .theme-toggle:hover .icon {
       transform: rotate(20deg) scale(1.15);
+    }
+
+    /* 앱 설치 버튼: 설치할 수 있을 때만 보임 */
+    .install-btn[hidden] {
+      display: none;
     }
 
     /* 전체 메인 컨테이너 */
@@ -1183,6 +1195,9 @@
       color: #ffffff;
       padding: 12px 24px;
       border-radius: 9999px;
+      width: max-content;
+      max-width: calc(100vw - 32px);
+      text-align: center;
       font-size: 14px;
       font-weight: 600;
       backdrop-filter: blur(10px);
@@ -1267,11 +1282,20 @@
       .balls-list.compact .ball.bonus-first {
         margin-left: 6px;
       }
-      .theme-toggle {
+      .top-actions {
         top: 14px;
         right: 14px;
+        gap: 6px;
+      }
+      .theme-toggle {
         padding: 6px 12px;
         font-size: 12px;
+      }
+      .install-btn {
+        padding: 6px 9px;
+      }
+      .install-btn .install-text {
+        display: none;
       }
       .whiteboard-toolbar {
         justify-content: center;
@@ -1522,11 +1546,17 @@
   <!-- 콘페티 캔버스 -->
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- 다크 모드 토글 버튼 -->
-  <button class="theme-toggle" id="theme-toggle" aria-label="테마 전환" data-i18n-aria="theme.aria">
-    <span class="icon" id="theme-icon">🌙</span>
-    <span id="theme-text">다크모드</span>
-  </button>
+  <!-- 오른쪽 위: 앱 설치 버튼(설치할 수 있을 때만 보임) + 다크 모드 토글 버튼 -->
+  <div class="top-actions">
+    <button class="theme-toggle install-btn" id="install-btn" hidden aria-label="앱 설치" data-i18n-aria="install.aria" data-i18n-title="install.aria">
+      <span class="icon">📲</span>
+      <span class="install-text" data-i18n="install.btn">앱 설치</span>
+    </button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="테마 전환" data-i18n-aria="theme.aria">
+      <span class="icon" id="theme-icon">🌙</span>
+      <span id="theme-text">다크모드</span>
+    </button>
+  </div>
 
   <!-- 언어 선택 -->
   <div class="lang-switch" role="group" aria-label="언어 선택" data-i18n-aria="lang.aria">
@@ -1835,6 +1865,10 @@
         'theme.light': '라이트모드',
         'toast.darkOn': '🌙 다크모드가 적용되었습니다.',
         'toast.lightOn': '☀️ 라이트모드가 적용되었습니다.',
+        'install.btn': '앱 설치',
+        'install.aria': '앱 설치하기',
+        'install.ios': '📲 Safari 아래쪽 공유 버튼을 누르고 <b>홈 화면에 추가</b>를 선택하세요.',
+        'install.done': '📲 앱이 설치되었습니다! 홈 화면에서 열 수 있어요.',
         'toast.copied': '클립보드에 복사되었습니다!',
         'nav.aria': '메뉴',
         'tab.lotto': '로또',
@@ -2016,6 +2050,10 @@
         'theme.light': 'Light',
         'toast.darkOn': '🌙 Dark mode is on.',
         'toast.lightOn': '☀️ Light mode is on.',
+        'install.btn': 'Install',
+        'install.aria': 'Install the app',
+        'install.ios': '📲 Tap the Share button in Safari, then choose <b>Add to Home Screen</b>.',
+        'install.done': '📲 App installed! Open it from your home screen.',
         'toast.copied': 'Copied to clipboard!',
         'nav.aria': 'Menu',
         'tab.lotto': 'Lotto',
@@ -2197,6 +2235,10 @@
         'theme.light': '浅色',
         'toast.darkOn': '🌙 已切换到深色模式。',
         'toast.lightOn': '☀️ 已切换到浅色模式。',
+        'install.btn': '安装',
+        'install.aria': '安装应用',
+        'install.ios': '📲 点击 Safari 下方的分享按钮，然后选择<b>添加到主屏幕</b>。',
+        'install.done': '📲 应用已安装！可以从主屏幕打开。',
         'toast.copied': '已复制到剪贴板！',
         'nav.aria': '菜单',
         'tab.lotto': '乐透',
@@ -2378,6 +2420,10 @@
         'theme.light': 'ライト',
         'toast.darkOn': '🌙 ダークモードに切り替えました。',
         'toast.lightOn': '☀️ ライトモードに切り替えました。',
+        'install.btn': 'インストール',
+        'install.aria': 'アプリをインストール',
+        'install.ios': '📲 Safari の共有ボタンをタップし、<b>ホーム画面に追加</b>を選んでください。',
+        'install.done': '📲 アプリをインストールしました！ホーム画面から開けます。',
         'toast.copied': 'クリップボードにコピーしました！',
         'nav.aria': 'メニュー',
         'tab.lotto': 'ロト',
@@ -3764,13 +3810,13 @@
        7. 토스트 메시지
        ======================================================== */
     let toastTimeout;
-    function showToast(message) {
-      toast.innerHTML = message;
+    function showToast(message, duration = 2300) {
+      toast.innerHTML = `<span>${message}</span>`; // 굵은 글씨(<b>)가 따로 떨어지지 않게 한 덩어리로
       toast.classList.add('show');
       clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
-      }, 2300);
+      }, duration);
     }
 
     /* ========================================================
@@ -3818,6 +3864,40 @@
     initTheme();
     applyLanguage(currentLang);
     setTimeout(resizeWhiteboard, 100);
+
+    // 앱 설치 버튼: Chrome·Edge·삼성 인터넷은 설치 창을 띄우고, 아이폰 Safari는 방법을 안내
+    const installBtn = document.getElementById('install-btn');
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    let deferredInstallPrompt = null;
+
+    if (!isStandalone && isIOS) installBtn.hidden = false;
+
+    window.addEventListener('beforeinstallprompt', event => {
+      event.preventDefault(); // 브라우저 기본 안내 대신 버튼으로 설치
+      deferredInstallPrompt = event;
+      installBtn.hidden = false;
+    });
+
+    installBtn.addEventListener('click', async () => {
+      playPopSound(620);
+      if (deferredInstallPrompt) {
+        const promptEvent = deferredInstallPrompt;
+        deferredInstallPrompt = null;
+        installBtn.hidden = true; // 설치 창은 한 번만 쓸 수 있음. 브라우저가 다시 허용하면 이벤트가 또 와서 다시 보임
+        promptEvent.prompt();
+        await promptEvent.userChoice;
+      } else if (isIOS) {
+        showToast(t('install.ios'), 6000);
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      installBtn.hidden = true;
+      showToast(t('install.done'));
+    });
 
     // 설치형 웹앱(PWA): 서비스 워커 등록 (오프라인 실행·홈 화면 설치)
     if ('serviceWorker' in navigator) {
