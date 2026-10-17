@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "행운의 로또 번호 추첨기 & 포춘 스케치북",
+  "short_name": "행운 로또",
+  "description": "로또 · 운세 · 타로로 뽑는 오늘의 행운 번호! 한국 로또와 미국·유럽 복권, 4개 언어 지원",
+  "lang": "ko",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eef2ff",
+  "theme_color": "#6366f1",
+  "categories": ["entertainment", "lifestyle"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

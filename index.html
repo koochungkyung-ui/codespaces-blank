@@ -21,6 +21,13 @@
   <meta name="twitter:title" content="🍀 행운의 로또 번호 추첨기">
   <meta name="twitter:description" content="로또 · 운세 · 타로로 뽑는 오늘의 행운 번호! 한국 로또와 미국·유럽 복권, 4개 언어 지원">
   <meta name="twitter:image" content="https://codespaces-blank-d5v.pages.dev/og-image.png">
+  <!-- 설치형 웹앱(PWA): 홈 화면 아이콘과 앱 정보 -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#6366f1">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/icons/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="행운 로또">
   <link rel="preconnect" 
   
   
@@ -3811,6 +3818,13 @@
     initTheme();
     applyLanguage(currentLang);
     setTimeout(resizeWhiteboard, 100);
+
+    // 설치형 웹앱(PWA): 서비스 워커 등록 (오프라인 실행·홈 화면 설치)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>

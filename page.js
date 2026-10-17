@@ -47,4 +47,11 @@
   if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.body.classList.add('dark');
 
   applyLanguage(detectLanguage());
+
+  // 설치형 웹앱(PWA): 앱과 같은 서비스 워커 등록
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+    });
+  }
 })();

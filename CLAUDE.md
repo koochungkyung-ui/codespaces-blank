@@ -27,7 +27,7 @@
 
 | 위치 | 내용 |
 |---|---|
-| `<head>` | Open Graph/트위터 공유 미리보기 태그, 미리보기 이미지는 `og-image.png` |
+| `<head>` | Open Graph/트위터 공유 미리보기 태그(이미지 `og-image.png`), PWA manifest·아이콘 태그 |
 | `<style>` | 라이트/다크 색상 변수(`:root`, `body.dark`), 화면별 스타일, 맨 끝에 "한 화면 탭 레이아웃"과 폰용(`@media (max-width: 540px)`) 규칙 |
 | `<body>` | 언어 버튼(`.lang-switch`), 다크모드 버튼, 탭 바(`.tab-nav`), 탭마다 하나씩 있는 `section.card` |
 | 스크립트 `0. 다국어` | `I18N` 사전(`ko/en/zh/ja`), `t(key, vars)`, `tData()` |
@@ -73,6 +73,14 @@
 - 폰(540px 이하)에서는 탭 5개가 한 줄에 들어가도록 아이콘을 글자 위에 둡니다(`.tab-btn { flex-direction: column }`). 탭을 더 늘리면 320px 폭에서 영어·일본어 글자가 넘치는지 확인합니다.
 - 폰에서는 공이 고정 크기가 아니라 줄어들 수 있게 되어 있습니다(`flex: 0 1 36px; aspect-ratio: 1`). 한 줄에 공 6~7개와 A~E 표시가 들어가야 하므로, 공 크기를 다시 고정값으로 바꾸면 360px 폭에서 줄바꿈이 생깁니다.
 - 페이지 전체는 스크롤되지 않습니다(`body`가 `100dvh`, `overflow: hidden`). 내용이 길면 각 카드 안에서 스크롤됩니다.
+
+## 설치형 웹앱 (PWA)
+
+- `manifest.webmanifest`(앱 이름·아이콘·색상), `sw.js`(서비스 워커), `icons/`(클로버 아이콘)로 구성됩니다. 세 HTML의 `<head>`에 manifest·아이콘 태그가 있고, 서비스 워커는 `index.html` 스크립트 끝과 `page.js`에서 등록합니다.
+- `sw.js`는 페이지(HTML)는 네트워크를 먼저 쓰고(배포하면 바로 반영), 나머지 파일과 Google 글꼴은 캐시를 먼저 씁니다. 그래서 `page.css`·`page.js`·아이콘을 고치면 **`CACHE` 이름의 숫자(`lucky-lotto-v1`)를 올려야** 방문자에게 새 파일이 갑니다. 미리 저장하는 목록(`PRECACHE`)도 함께 맞춥니다.
+- `PRECACHE`에는 Cloudflare 주소 규칙대로 `.html` 없이 `/about`, `/privacy`를 씁니다. 목록 중 하나라도 404가 나면 서비스 워커 설치가 통째로 실패합니다.
+- 아이콘은 SVG를 resvg로 PNG로 바꿔 만들었습니다(192, 512, maskable 512, apple-touch 180). maskable 아이콘은 그림이 가운데 80% 안에 들어가야 합니다.
+- manifest의 앱 이름은 한국어 하나입니다(manifest는 언어별로 바꿀 수 없음).
 
 ## 공유 미리보기 이미지
 
